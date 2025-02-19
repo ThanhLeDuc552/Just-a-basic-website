@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechVerse - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function toggleMenu() {
+            document.querySelector('nav ul').classList.toggle('show');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+        <h1>TechVerse</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Group</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Application</a></li>
+                <li><a href="#">Enhancements</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h2>Welcome to TechVerse</h2>
+        <p>Your daily dose of technology insights and trends.</p>
+    </section>
+
+    <section class="about">
+        <h2>Who we are</h2>
+        <p>TechVerse is a leading technology company committed to transforming industries through innovative solutions.</p>
+    </section>
+    
+    <section class="articles">
+        <h2>Latest Articles</h2>
+        <div class="article-grid">
+            <article>
+                <h3>AI in 2025</h3>
+                <p>How artificial intelligence is shaping the future.</p>
+                <a href="#">Read More</a>
+            </article>
+            <article>
+                <h3>Top 5 Programming Languages</h3>
+                <p>The most in-demand programming languages this year.</p>
+                <a href="#">Read More</a>
+            </article>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 TechVerse. All Rights Reserved</p>
+    </footer>
+</body>
+</html>
