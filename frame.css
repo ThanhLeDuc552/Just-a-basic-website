@@ -40,6 +40,10 @@
     text-decoration: none;
 }
 
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
 .btn {
     background-color: #ff6b6b;
     padding: 0.5rem 1rem;
@@ -75,7 +79,9 @@
 
 .footer-col a:hover {
     color: white;
+    text-decoration: underline;
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
