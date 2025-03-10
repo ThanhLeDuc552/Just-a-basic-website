@@ -1,0 +1,280 @@
+body {
+	font-family: "neulis-sans", sans-serif;
+	background-color: #faf5fc;
+	margin: 0;
+	padding: 0;
+}
+
+/* Main content container */
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+/* Section styling */
+section {padding: 1rem 0;}
+
+.bg-white {background-color: #faf5fc;}
+
+section.bg-white h1,
+section.bg-white h2,
+section.bg-white h3 {
+	color: #1f2937;
+}
+
+section.bg-white p {color: #4b5563;}
+
+.bg-purple-100 {background: linear-gradient(90deg, #d965d6, #7d73e0);}
+
+section.bg-purple-100 h1,
+section.bg-purple-100 h2,
+section.bg-purple-100 h3,
+section.bg-purple-100 p {
+	color: #ffffff;
+}
+
+section .container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+section h1,
+section h2 {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+section p {
+	margin-bottom: 1.5rem;
+	line-height: 1.5;
+}
+
+section img {
+	max-width: 100%;
+	border-radius: 0.5rem;
+}
+
+/* Button styling */
+.actions button {
+	background: linear-gradient(45deg, #d965d6, #7d73e0);
+	color: #ffffff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.actions a {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+.actions button:hover {
+	background: linear-gradient(45deg, #7d73e0, #d965d6);
+}
+
+/* Navigation bar */
+header {
+	background-color: #ffffff;
+	box-shadow: none;
+	max-width: 100%;
+}
+
+header .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	height: 43px;
+}
+
+header .container .logo {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #1f2937;
+}
+
+header nav {
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	background: #faf5fc;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	width: 100%
+}
+
+header nav a {
+	color: #4b5563;
+	padding: 1rem;
+	text-decoration: none;
+	display: block;
+}
+
+.menu-icon {
+	font-size: 2rem;
+	cursor: pointer;
+	display: block;
+}
+
+#menu-toggle {
+	display: none;
+}
+
+#menu-toggle:checked~nav {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+}
+
+/* Job Card */
+.job-card {
+	background-color: #ffffff;
+	padding: 0.5rem;
+	border-radius: 1rem;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 250px;
+	transition: transform 0.3s ease-in-out;
+}
+
+.job-card:hover {
+	transform: scale(1.02);
+}
+
+.job-card img {
+	border-radius: 1rem;
+	width: 100%;
+}
+
+.job-card .location {
+	margin: 10px 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.job-card .tag {
+	background: #d5aefb;
+	color: #5a2d82;
+	font-size: 0.8rem;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
+
+.job-card .jobref {
+	background: purple;
+	color: white;
+	font-size: 0.8rem;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
+
+.job-card .title {
+	color: #1f2937;
+}
+
+.job-card .price-instructor {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px 0;
+}
+
+.job-card .price {
+	font-size: 18px;
+	font-weight: bold;
+	color: #1f2937;
+}
+
+.job-card a {text-decoration: none;}
+
+/* Footer Section */
+footer {
+	color: white;
+	padding: 40px 0;
+	text-align: center;
+}
+
+footer .container {
+	display: flex;
+	justify-content: space-around;
+	margin: auto;
+	flex-wrap: wrap;
+}
+
+.footer-column {
+	flex: 1;
+	min-width: 200px;
+	margin: 10px;
+}
+
+.footer h3 {
+	margin-bottom: 15px;
+	font-size: 18px;
+}
+
+footer p,
+footer a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	margin: 5px 0;
+	font-size: 14px;
+}
+
+footer a:hover {
+	text-decoration: underline;
+}
+
+.social-icons {
+	margin-top: 10px;
+}
+
+.social-icons a {
+	display: inline-block;
+	margin: 0 5px;
+	font-size: 18px;
+	color: white;
+}
+
+.footer-bottom {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 12px;
+}
+
+@media (max-width: 768px) {
+	header nav a:hover {
+		background-color: #c683e0;
+	}
+}
+
+@media (min-width: 768px) {
+	header nav {
+		display: flex;
+		justify-content: flex-end;
+		box-shadow: none;
+		flex-direction: row;
+		position: static;
+	}
+
+	header nav a {
+		margin-right: 1.5rem;
+		padding: 0;
+		display: inline-block;
+	}
+
+	header nav a:hover {
+		text-decoration: underline;
+	}
+
+	.menu-icon {
+		display: none;
+	}
+}

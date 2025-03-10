@@ -1,0 +1,41 @@
+html {
+   height: 100%;
+}
+body {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+
+/* Main Content */
+main {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 20px;
+   flex: 1;
+}
+
+/* Enhancements Page */
+.enhancements-list h2 {
+   font: bold 1.8em 'Segoe UI', sans-serif;
+   color: #1e3c72;
+   margin-bottom: 20px;
+}
+
+.enhancements-list ul {
+   list-style: none;
+   margin: 0 auto;
+   padding-inline-start: 0;
+}
+
+.enhancements-list li {
+   background-color: white;
+   padding: 20px;
+   margin-bottom: 20px;
+   border-radius: 8px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.enhancements-list strong {
+   color: #2a5298;
+}
