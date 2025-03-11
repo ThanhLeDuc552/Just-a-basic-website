@@ -14,6 +14,7 @@
 	<body>
 		<!-- Header -->
 		<?php include_once 'header.inc'; ?>
+		<?php include 'settings.php' ?>
 		<!-- Section 3: Job search -->
 		<main>
 			<section class="bg-white">
@@ -27,23 +28,32 @@
 								<div class="filter-group">
 									<label for="loc">Location</label><br>
 									<select name="loc" id="loc" class="opt-box">
-										<option value="all">All</option>
-										<option value="danang">Da Nang City</option>
-										<option value="hanoi">Ha Noi City</option>
-										<option value="hochiminh">Ho Chi Minh City</option>
+										<option value="">All</option>
+										<?php 
+										$cmd = "SELECT DISTINCT Location FROM jobs order by Location";
+										$result = mysqli_query($conn, $cmd);
+										while ($row = mysqli_fetch_assoc($result)) {
+											echo "<option value='" . $row['Location'] . "'>" . $row['Location'] . "</option>";
+										}
+										?>
 									</select>
 								</div>
 								<div class="filter-group">
 									<label for="contract">Contract</label><br>
-									<select id="contract" class="opt-box">
-										<option value="all">All</option>
-										<option value="Full-time">Full-time</option>
-										<option value="Contract">Contract</option>
+									<select id="contract" class="opt-box" name="contract">
+										<option value="">All</option>
+										<?php 
+										$cmd = "SELECT DISTINCT Position FROM jobs order by Position";
+										$result = mysqli_query($conn, $cmd);
+										while ($row = mysqli_fetch_assoc($result)) {
+											echo "<option value='" . $row['Position'] . "'>" . $row['Position'] . "</option>";
+										}
+										?>
 									</select>
 								</div>
 								<div class="filter-group">
 									<label for="input">Keyword</label><br>
-									<input id="input" class="opt-box" placeholder="Search for your position" type="text">
+									<input id="input" class="opt-box" placeholder="Search for your position" type="text" value="<?php echo isset($_GET['input']) ? $_GET['input'] : ''; ?>" name="input">
 								</div>
 								<div class="actions"><button type="submit">Filter</button></div>
 							</div>
@@ -52,55 +62,66 @@
 				</div>
 			</section>
 			<!-- Section 4: Jobs -->
-			<section class="bg-white" >
+			<section class="bg-white job-listings">
 				<div class="container">
-					<div class="card-align">
-						<div class="job-card">
-							<a href="page1.php">
-								<img alt="cybersecurity analyst" src="styles/images/cybersecurity.webp">
-								<div class="location">
-									<span class="tag">Da Nang City</span>
-									<span class="jobref">ICA123</span>
-								</div>
-								<h3 class="title">
-									Cybersecurity Analyst
-								</h3>
-								<div class="price-instructor">
-									<div class="price">$205.000 - $300.000</div>
-								</div>
-							</a>
-						</div>
-						<div class="job-card">
-							<a href="page2.php">
-								<img alt="software engineer" src="styles/images/software-engineer.png">
-								<div class="location">
-									<span class="tag">Ho Chi Minh City</span>
-									<span class="jobref">SE567</span>
-								</div>
-								<h3 class="title">
-									Software Engineer
-								</h3>
-								<div class="price-instructor">
-									<div class="price">$100.500 - $250.000</div>
-								</div>
-							</a>
-						</div>
-						<div class="job-card">
-							<a href="page3.php">
-								<img alt="AI engineer" src="styles/images/artificial-intelligence.png">
-								<div class="location">
-									<span class="tag">Ha Noi City</span>
-									<span class="jobref">AI647</span>
-								</div>
-								<h3 class="title">
-									AI Engineer
-								</h3>
-								<div class="price-instructor">
-									<div class="price">$130.000 - $203.600</div>
-								</div>
-							</a>
-						</div>
-					</div>
+					<?php 
+					$sql = "SELECT * FROM jobs WHERE 1=1";
+					$params = [];
+					$types = "";
+			
+					if (isset($_GET['contract']) && !empty($_GET['contract'])) {
+						$sql .= " AND Position = ?";
+						$params[] = $_GET['contract'];
+						$types .= "s";
+					}
+			
+					if (isset($_GET['loc']) && !empty($_GET['loc'])) {
+						$sql .= " AND Location = ?";
+						$params[] = $_GET['loc'];
+						$types .= "s";
+					}
+			
+					if (isset($_GET['input']) && !empty($_GET['input']) && $_GET['input'] != "") {
+						$sql .= " AND (Title LIKE ? OR Description LIKE ?)";
+						$keyword = "%" . $_GET['input'] . "%";
+						$params[] = $keyword;
+						$params[] = $keyword;
+						$types .= "ss";
+					}
+
+					$stmt = mysqli_prepare($conn, $sql);
+					if (!empty($params)) {
+						mysqli_stmt_bind_param($stmt, $types, ...$params);
+					}
+			
+					mysqli_stmt_execute($stmt);
+					$result = mysqli_stmt_get_result($stmt);
+
+					if (mysqli_num_rows($result) == 0) {
+						echo "<h2>No jobs found</h2>";
+					} else { 
+						echo "<div class=\"card-align\">";
+						while ($row = mysqli_fetch_assoc($result)) {
+							echo "<div class=\"job-card\">";
+							echo "<a href=\"job.php?job-ref=" . $row['JobReferenceNumber'] . "\">";
+							echo "<h3 class=\"title\">" . $row["Title"] . "</h3>";
+							//echo "<img alt=\"random\" src=\"image.png\">";
+							echo "<div class=\"location\">";
+							echo "<span class=\"tag\">" . $row["Location"]. "</span>";
+							echo "<span class=\"jobref\">" . $row["JobReferenceNumber"] . "</span>";
+							echo "</div>";
+							
+							echo "<div class=\"price-instructor\">";
+							echo "<div class=\"price\">" . $row["Salary"] . "</div>";
+							echo "</div>";
+							echo "</a>";
+							echo "</div>";
+						}
+						echo "</div>";
+					}
+
+					mysqli_close($conn);
+					?>
 				</div>
 			</section>
 			<div class="bg-purple-100 more">

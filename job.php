@@ -9,12 +9,45 @@
         <link rel="stylesheet" href="styles/style.css"> <!-- General styling -->
 		<link rel="stylesheet" href="styles/jobs.css"> <!-- Job details styling -->
 	</head>
-
 <body>
   <!-- Header -->
 <?php include_once 'header.inc'; ?>
 <main>
     <section class="job-details">
+        <?php 
+        session_start();
+        include "settings.php";
+        include "functions.inc";
+        $job_ref = isset($_GET['job-ref']) ? sanitize_input($_GET['job-ref']) : '';
+        
+        if (empty($job_ref)) {
+            header("Location: jobs.php");
+            exit();
+        }
+
+        $sql = "SELECT * FROM jobs WHERE JobReferenceNumber = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $job_ref);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        // Check if job exists
+        if (mysqli_num_rows($result) == 0) {
+            header("Location: jobs.php");
+            exit();
+        }
+
+        $job = mysqli_fetch_assoc($result);
+        
+        $responsibilities = [];
+        $essential = [];
+        $preferable = [];
+        
+        $job['Responsibilities'] = explode(";", $job['Responsibilities']);
+        $job['Essential'] = explode(';', $job['Essential']);
+        $job['Preferrable'] = explode(';', $job['Preferrable']);
+        ?>
+        <div class="container">
         <h1>Cybersecurity Analyst</h1>
         <p>📍 DaNang City</p>
         <p><strong>Salary: $205,000 - $300,000</strong></p>
@@ -42,7 +75,7 @@
                     <li>Experience with forensic analysis and incident response.</li>
                 </ul>
             </ul>
-    
+        </div>
     </section>
 	<aside>
     <a href="apply.html" class="cta apply-btn">Apply Now</a>
