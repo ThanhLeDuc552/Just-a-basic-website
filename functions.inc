@@ -423,4 +423,357 @@ function get_application_details($eoi_id, $conn) {
 
     return null;
 }
+
+/**
+ * Track job view for recommendation system
+ *
+ * @param string $job_ref Job reference number
+ * @param string $email User email (can be null for anonymous users)
+ * @param object $conn Database connection
+ * @return bool Success status
+ */
+function track_job_view($job_ref, $email, $conn) {
+    // Create or get session ID
+    if (!isset($_SESSION['visitor_id'])) {
+        $_SESSION['visitor_id'] = session_id();
+    }
+    
+    $session_id = $_SESSION['visitor_id'];
+    $device_type = get_device_type();
+    
+    $sql = "INSERT INTO job_views (JobReferenceNumber, UserEmail, SessionID, DeviceType) 
+            VALUES (?, ?, ?, ?)";
+            
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ssss", $job_ref, $email, $session_id, $device_type);
+    return mysqli_stmt_execute($stmt);
+}
+
+/**
+ * Update job view duration
+ *
+ * @param int $view_id View ID to update
+ * @param int $duration View duration in seconds
+ * @param object $conn Database connection
+ * @return bool Success status
+ */
+function update_view_duration($view_id, $duration, $conn) {
+    $sql = "UPDATE job_views SET ViewDuration = ? WHERE ViewID = ?";
+    
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ii", $duration, $view_id);
+    return mysqli_stmt_execute($stmt);
+}
+
+/**
+ * Get recommended jobs based on user viewing history
+ *
+ * @param string $session_id Session ID
+ * @param int $limit Maximum number of recommendations
+ * @param object $conn Database connection
+ * @return array Recommended jobs
+ */
+function get_recommended_jobs($session_id, $limit = 3, $conn) {
+    // Get user's viewing history
+    $sql = "SELECT JobReferenceNumber, COUNT(*) as view_count, SUM(ViewDuration) as total_duration 
+            FROM job_views 
+            WHERE SessionID = ? 
+            GROUP BY JobReferenceNumber 
+            ORDER BY total_duration DESC";
+            
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $session_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $viewed_jobs = [];
+    $viewed_job_refs = [];
+    
+    while ($row = mysqli_fetch_assoc($result)) {
+        $viewed_jobs[] = $row;
+        $viewed_job_refs[] = $row['JobReferenceNumber'];
+    }
+    
+    // If user has no history, return random jobs
+    if (empty($viewed_jobs)) {
+        $sql = "SELECT * FROM jobs ORDER BY RAND() LIMIT ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $limit);
+        mysqli_stmt_execute($stmt);
+        return mysqli_stmt_get_result($stmt);
+    }
+    
+    // Get related jobs based on similar keywords
+    $placeholders = str_repeat('?,', count($viewed_job_refs) - 1) . '?';
+    $sql = "SELECT j.*, 
+            (SELECT GROUP_CONCAT(sk.Keyword SEPARATOR ', ') 
+             FROM skill_keywords sk 
+             WHERE sk.JobReferenceNumber = j.JobReferenceNumber) as skills
+            FROM jobs j
+            WHERE j.JobReferenceNumber NOT IN ($placeholders)
+            ORDER BY RAND()
+            LIMIT ?";
+            
+    $params = array_merge($viewed_job_refs, [$limit]);
+    $types = str_repeat('s', count($viewed_job_refs)) . 'i';
+    
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, $types, ...$params);
+    mysqli_stmt_execute($stmt);
+    
+    return mysqli_stmt_get_result($stmt);
+}
+
+/**
+ * Parse resume text and extract skills
+ *
+ * @param string $resume_text Resume content
+ * @param object $conn Database connection
+ * @return array Extracted skills and their weights
+ */
+function parse_resume_skills($resume_text, $conn) {
+    // Get all possible skills from database
+    $sql = "SELECT Keyword FROM skill_keywords GROUP BY Keyword";
+    $result = mysqli_query($conn, $sql);
+    
+    $all_skills = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $all_skills[] = $row['Keyword'];
+    }
+    
+    // Look for skills in resume text
+    $found_skills = [];
+    foreach ($all_skills as $skill) {
+        // Case insensitive search
+        if (stripos($resume_text, $skill) !== false) {
+            // Count occurrences for weighting
+            $count = substr_count(strtolower($resume_text), strtolower($skill));
+            $found_skills[$skill] = $count;
+        }
+    }
+    
+    // Sort by frequency
+    arsort($found_skills);
+    
+    return $found_skills;
+}
+
+/**
+ * Calculate job match score based on applicant skills and job requirements
+ *
+ * @param array $applicant_skills Applicant skills array
+ * @param string $job_ref Job reference number
+ * @param object $conn Database connection
+ * @return int Match score (0-100)
+ */
+function calculate_job_match($applicant_skills, $job_ref, $conn) {
+    // Get job required skills
+    $sql = "SELECT Keyword, Weight FROM skill_keywords WHERE JobReferenceNumber = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $job_ref);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $job_skills = [];
+    $total_weight = 0;
+    
+    while ($row = mysqli_fetch_assoc($result)) {
+        $job_skills[$row['Keyword']] = $row['Weight'];
+        $total_weight += $row['Weight'];
+    }
+    
+    if ($total_weight == 0) {
+        return 0; // No skills defined for this job
+    }
+    
+    // Calculate match score
+    $match_score = 0;
+    foreach ($job_skills as $skill => $weight) {
+        if (array_key_exists($skill, $applicant_skills)) {
+            $match_score += $weight;
+        }
+    }
+    
+    // Convert to percentage
+    return round(($match_score / $total_weight) * 100);
+}
+
+/**
+ * Add application timeline event
+ *
+ * @param int $eoi_number EOI number
+ * @param string $stage Timeline stage
+ * @param string $notes Optional notes
+ * @param string $next_date Optional next step date (Y-m-d format)
+ * @param object $conn Database connection
+ * @return bool Success status
+ */
+function add_timeline_event($eoi_number, $stage, $notes = '', $next_date = null, $conn) {
+    $sql = "INSERT INTO application_timeline (EOInumber, Stage, Notes, NextStepDate) 
+            VALUES (?, ?, ?, ?)";
+            
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "isss", $eoi_number, $stage, $notes, $next_date);
+    return mysqli_stmt_execute($stmt);
+}
+
+/**
+ * Get application timeline
+ *
+ * @param int $eoi_number EOI number
+ * @param object $conn Database connection
+ * @return array Timeline events
+ */
+function get_application_timeline($eoi_number, $conn) {
+    $sql = "SELECT * FROM application_timeline 
+            WHERE EOInumber = ? 
+            ORDER BY StageTimestamp ASC";
+            
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $eoi_number);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $timeline = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $timeline[] = $row;
+    }
+    
+    return $timeline;
+}
+
+/**
+ * Tracks job views for the recommendation system
+ * 
+ * @param string $job_ref Job reference number
+ * @param string $email User email (can be null for anonymous users)
+ * @param object $conn Database connection
+ * @return int|false View ID if successful, false otherwise
+ */
+function track_job_view($job_ref, $email, $conn) {
+    // Create or get session ID
+    if (!isset($_SESSION['visitor_id'])) {
+        $_SESSION['visitor_id'] = session_id();
+    }
+    
+    $visitor_id = $_SESSION['visitor_id'];
+    $view_timestamp = date('Y-m-d H:i:s');
+    $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    $device_type = get_device_type();
+    
+    // Insert view record
+    $sql = "INSERT INTO job_views 
+            (JobReferenceNumber, VisitorID, Email, ViewTimestamp, DeviceType, UserAgent) 
+            VALUES (?, ?, ?, ?, ?, ?)";
+    
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ssssss", $job_ref, $visitor_id, $email, $view_timestamp, $device_type, $user_agent);
+    
+    if (mysqli_stmt_execute($stmt)) {
+        return mysqli_insert_id($conn);
+    }
+    
+    return false;
+}
+
+/**
+ * Get device type from user agent
+ * 
+ * @return string Device type (mobile, tablet, desktop)
+ */
+function get_device_type() {
+    $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    
+    if (preg_match('/(android|webos|iphone|ipad|ipod|blackberry|windows phone)/i', $user_agent)) {
+        if (preg_match('/(ipad|tablet)/i', $user_agent)) {
+            return 'tablet';
+        }
+        return 'mobile';
+    }
+    
+    return 'desktop';
+}
+
+/**
+ * Get user preferences from database
+ * 
+ * @param string $email User email
+ * @param object $conn Database connection
+ * @return array User preferences
+ */
+function get_user_preferences($email, $conn) {
+    $sql = "SELECT * FROM user_preferences WHERE Email = ?";
+    
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    if ($row = mysqli_fetch_assoc($result)) {
+        return $row;
+    }
+    
+    // Return default preferences if none found
+    return [
+        'PreferredLocation' => '',
+        'PreferredSalary' => '',
+        'PreferredJobType' => '',
+        'PreferredSkills' => '',
+        'DashboardLayout' => 'default',
+        'theme' => 'light'
+    ];
+}
+
+/**
+ * Save user preferences to database
+ * 
+ * @param string $email User email
+ * @param array $preferences Preferences array
+ * @param object $conn Database connection
+ * @return bool Success status
+ */
+function save_user_preferences($email, $preferences, $conn) {
+    // Prepare values
+    $location = $preferences['location'] ?? '';
+    $salary = $preferences['salary'] ?? '';
+    $job_type = $preferences['job_type'] ?? '';
+    $skills = $preferences['skills'] ?? '';
+    $layout = $preferences['layout'] ?? 'default';
+    $theme = $preferences['theme'] ?? 'light';
+    
+    // Check if user preferences already exist
+    $check_sql = "SELECT COUNT(*) as count FROM user_preferences WHERE Email = ?";
+    $check_stmt = mysqli_prepare($conn, $check_sql);
+    mysqli_stmt_bind_param($check_stmt, "s", $email);
+    mysqli_stmt_execute($check_stmt);
+    $check_result = mysqli_stmt_get_result($check_stmt);
+    $row = mysqli_fetch_assoc($check_result);
+    
+    if ($row['count'] > 0) {
+        // Update existing preferences
+        $sql = "UPDATE user_preferences 
+                SET PreferredLocation = ?, 
+                    PreferredSalary = ?, 
+                    PreferredJobType = ?, 
+                    PreferredSkills = ?, 
+                    DashboardLayout = ?,
+                    theme = ?,
+                    LastUpdated = NOW()
+                WHERE Email = ?";
+        
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "sssssss", $location, $salary, $job_type, $skills, $layout, $theme, $email);
+        return mysqli_stmt_execute($stmt);
+    } else {
+        // Insert new preferences
+        $sql = "INSERT INTO user_preferences 
+                (Email, PreferredLocation, PreferredSalary, PreferredJobType, PreferredSkills, DashboardLayout, theme, LastUpdated) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+        
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "sssssss", $email, $location, $salary, $job_type, $skills, $layout, $theme);
+        return mysqli_stmt_execute($stmt);
+    }
+}
+
 ?>

@@ -1,0 +1,225 @@
+/**
+ * Application Timeline Component Styles
+ */
+
+.application-timeline {
+    margin: 50px 0;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.application-timeline h2 {
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.application-timeline h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--purple);
+}
+
+.timeline-container {
+    position: relative;
+    margin-top: 40px;
+}
+
+.timeline-progress-bar {
+    position: relative;
+    height: 5px;
+    background-color: #eee;
+    margin: 0 auto 50px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(to right, var(--purple), var(--purple-light));
+    transition: width 1s ease-in-out;
+}
+
+.timeline-steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.timeline-step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+}
+
+.timeline-step:hover {
+    transform: translateX(5px);
+}
+
+.timeline-step::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 19px;
+    width: 2px;
+    height: calc(100% + 40px);
+    background-color: #ddd;
+    z-index: 0;
+}
+
+.timeline-step:last-child::before {
+    display: none;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    position: relative;
+    z-index: 2;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.step-content {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.step-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Pending step styles */
+.timeline-step.pending .step-icon {
+    background-color: #ccc;
+    color: #888;
+}
+
+.timeline-step.pending .step-content h3,
+.timeline-step.pending .step-content p {
+    color: #888;
+}
+
+/* Completed step styles */
+.timeline-step.completed .step-icon {
+    background-color: var(--purple);
+}
+
+.timeline-step.completed::before {
+    background-color: var(--purple-light);
+}
+
+/* Current step styles */
+.timeline-step.current .step-icon {
+    background-color: var(--purple);
+    animation: pulse 2s infinite;
+}
+
+.timeline-step.current .step-content h3 {
+    color: var(--purple);
+    font-weight: 700;
+}
+
+.timeline-step.current .step-content {
+    background-color: rgba(138, 43, 226, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+/* Step details styles */
+.step-details {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+    font-size: 0.9rem;
+}
+
+.step-date {
+    display: inline-block;
+    background-color: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.step-notes {
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border-left: 3px solid var(--purple-light);
+}
+
+.next-step {
+    margin-top: 10px;
+    color: var(--purple);
+    font-size: 0.9rem;
+}
+
+/* Special styles for rejected status */
+.timeline-step.current[data-stage="Rejected"] .step-icon {
+    background-color: #dc3545;
+    animation: none;
+}
+
+.timeline-step.current[data-stage="Rejected"] .step-content h3 {
+    color: #dc3545;
+}
+
+.timeline-step.current[data-stage="Rejected"] .step-content {
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(138, 43, 226, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(138, 43, 226, 0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline-step {
+        padding-left: 10px;
+    }
+    
+    .step-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .timeline-step::before {
+        left: 14px;
+    }
+}
