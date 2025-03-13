@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +15,9 @@
 <main>
   <section class="form-container">
     <h2>Submit Your Application</h2>
-    <action="process_eoi.php" method="post" novalidate>
+    <form action="process_eoi.php" method="post" novalidate>
       <label for="jobref">Job Reference Number:</label>
-      <input type="text" id="jobref" name="job_ref" pattern="[A-Za-z0-9]{5}" required maxlength="5" placeholder="e.g., TC001">
+      <input type="text" id="jobref" name="job_ref" pattern="[A-Za-z0-9]{5}" required maxlength="5" placeholder="e.g., TC001" value="<?php echo $_GET['job_ref']; ?>">
 
       <label for="fname">First Name:</label>
       <input type="text" id="fname" name="first_name" pattern="[A-Za-z]{1,20}" required maxlength="20" placeholder="John">

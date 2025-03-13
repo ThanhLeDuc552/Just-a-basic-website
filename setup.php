@@ -51,9 +51,12 @@ $sql_eoi = "CREATE TABLE IF NOT EXISTS eoi (
 
 // Create Jobs table
 $sql_jobs = "CREATE TABLE IF NOT EXISTS jobs (
-  JobReferenceNumber VARCHAR(5) PRIMARY KEY,
+  JobReferenceNumber VARCHAR(6) PRIMARY KEY,
   Title VARCHAR(100) NOT NULL,
-  Description TEXT NOT NULL,
+  Description LONGTEXT NOT NULL,
+  Responsibilities LONGTEXT NOT NULL, /* ; delimited */
+  Essential LONGTEXT NOT NULL, /* ; delimited */
+  Preferrable LONGTEXT NOT NULL, /* ; delimited */
   Position VARCHAR(50) NOT NULL,
   Location VARCHAR(100) NOT NULL,
   Salary VARCHAR(50)
@@ -66,10 +69,7 @@ $sql_managers = "CREATE TABLE IF NOT EXISTS managers (
   Password VARCHAR(255) NOT NULL,
   FirstName VARCHAR(50) NOT NULL,
   LastName VARCHAR(50) NOT NULL,
-  Email VARCHAR(255) NOT NULL,
-  LastLogin DATETIME,
-  AccountLocked BOOLEAN DEFAULT FALSE,
-  LockUntil DATETIME
+  Email VARCHAR(255) NOT NULL
 )";
 
 // Create Login Attempts table
@@ -108,17 +108,48 @@ if (mysqli_query($conn, $sql_login_attempts)) {
 
 // Insert sample jobs data
 $sample_jobs = [
-    ['ICA123', 'Cybersecurity Analyst', 'Experienced web developer needed for complex projects...', 'Full-time', 'Da Nang City', '$205.000 - $300.000'],
-    ['SE567', 'Software Engineer', 'Looking for a skilled DBA to manage our database systems...', 'Full-time', 'Ho Chi Minh City', '$100.500 - $250.000'],
-    ['AI647', 'AI Engineer', 'Creative designer needed to enhance user experiences...', 'Contract', 'Ha Noi City', '$130.000 - $203.600']
+    ['ICA123', 'Cybersecurity Analyst', 
+    'We are seeking a Junior Cyber Security Analyst to join CP SOC. If you want to break into Cyber Security, or seeking to move into a new role, 
+    while being part of a high performance team, which is committed to your professional growth, with a mission focused on defending critical national infrastructure, 
+    then this is the job for you.', 
+    'Analysis of security events from multiple sources including but not limited to events from the Security Information and Event Management tool, network intrusion systems and Host based Intrusion Prevention tools (AV, HIPS, Application Whitelisting).;
+    Monitor and assess emerging threats and vulnerabilities to the environment and ensure those requiring action are addressed.;
+    Security Incident Management, advice and education and maintaining the currency and health of the deployed security tools.;
+    Provide technical administration support for security suite of software and hardware.', 
+    'Bachelor’s degree in Cybersecurity or related field.;
+    Familiarity with security tools and technologies, such as SIEM, IDS/IPS, antivirus software, cloud technologies and endpoint protection.;
+    3+ years of general IT experience which could include Security, Service Desk or Technical Support roles.', 
+    'Industry certifications (CISSP, CEH, CompTIA Security+).;
+    Experience with forensic analysis and incident response.', 
+    'Full-time', 'Da Nang City', '$205.000 - $300.000'],
+    ['SE567', 'Software Engineer', 
+    'We are looking for you to join our team as a Senior Principal Software Engineer based out of Ho Chi Minh city. 
+    As a Software Engineer at ETech you will have a challenging and rewarding opportunity to be a part of our Enterprise-wide digital transformation. 
+    Through the use of Model-based Engineering, DevSecOps and Agile practices we continue to evolve how we deliver critical national defense products and 
+    capabilities for the warfighter. Our success is grounded in our ability to embrace change, move quickly and continuously drive innovation. 
+    The successful candidate will be collaborative, open, transparent, and team-oriented with a focus on team empowerment & shared responsibility, flexibility, 
+    continuous learning, and a culture of automation.', 
+    'Develop, test, and maintain software applications.;
+    Collaborate with our customer, internal NG sites and other engineering disciplines.;
+    Debug and resolve software issues.;Design and implement software for quality, robustness, and scale.', 
+    'BS degree in a STEM related field (Science, Technology, Engineering and Mathematics) with 8+ years of related experience, 
+    Master\'s Degree in a STEM related field with 6+ years of related experience, or PhD in a STEM related field with 3+ years related experience. 
+    An additional 4 years of experience can be considered in lieu of degree.;
+    Must have experience with C#.;
+    Design Patterns and Tech Stack experience with one or more of the following tools: Dependency Injection, MEF, REST API, MVVM, WPF, Unit Test, C#, React OR Multithread applications;
+    Experience working in an Agile environment.', 
+    '.NET Core, Java, JavaScript, ReactJS, Reduc, CSS;
+    Agile Methodologies and Atlassian Tool Suite (Git, Jira, Bitbucket, Confluence);
+    Docker, Containers, Terraform, OpenShift, Kubernetes, HELM Charts',  
+    'Full-time', 'Ho Chi Minh City', '$100.500 - $250.000'],
 ];
 
 foreach ($sample_jobs as $job) {
-    $sql = "INSERT IGNORE INTO jobs (JobReferenceNumber, Title, Description, Position, Location, Salary) 
-            VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT IGNORE INTO jobs (JobReferenceNumber, Title, Description, Responsibilities, Essential, Preferrable, Position, Location, Salary) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sssssss", $job[0], $job[1], $job[2], $job[3], $job[4], $job[5]);
+    mysqli_stmt_bind_param($stmt, "sssssssss", $job[0], $job[1], $job[2], $job[3], $job[4], $job[5], $job[6], $job[7], $job[8]);
     mysqli_stmt_execute($stmt);
 }
 

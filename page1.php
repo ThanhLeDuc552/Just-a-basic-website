@@ -9,12 +9,15 @@
         <link rel="stylesheet" href="styles/style.css"> <!-- General styling -->
 		<link rel="stylesheet" href="styles/jobs.css"> <!-- Job details styling -->
 	</head>
-
 <body>
   <!-- Header -->
 <?php include_once 'header.inc'; ?>
 <main>
     <section class="job-details">
+        <?php 
+        session_start();
+        
+        ?>
         <h1>Cybersecurity Analyst</h1>
         <p>📍 DaNang City</p>
         <p><strong>Salary: $205,000 - $300,000</strong></p>
