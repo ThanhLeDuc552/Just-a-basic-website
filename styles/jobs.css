@@ -1,3 +1,19 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+  
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+main {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
 /* Job listing section */
 .card-align {
 	display: flex;
@@ -8,6 +24,10 @@
 
 .job-card {
 	border: 2px solid #000000;
+}
+
+.job-listings {
+	flex: 1;
 }
 
 /* Job filtering */

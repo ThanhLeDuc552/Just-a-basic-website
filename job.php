@@ -14,16 +14,15 @@
 <?php include_once 'header.inc'; ?>
 <main>
     <section class="job-details">
-        <?php 
-        session_start();
-        
-        ?>
-        <h1>Cybersecurity Analyst</h1>
-        <p>📍 DaNang City</p>
-        <p><strong>Salary: $205,000 - $300,000</strong></p>
-        <p><strong>Reference:</strong>ICA123</p>
-        <p><strong>Reports To:</strong> Chief Information Security Officer</p>
-        <p><strong>Job Description:</strong> We are seeking a Junior Cyber Security Analyst to join CP SOC. If you want to break into Cyber Security, or seeking to move into a new role, while being part of a high performance team, which is committed to your professional growth, with a mission focused on defending critical national infrastructure, then this is the job for you.</p>
+        <div class="container">
+            <div class="bg-purple-100">
+                <h1>Cybersecurity Analyst</h1>
+                <p>📍 DaNang City</p>
+            </div>
+            <p><strong>Salary: $205,000 - $300,000</strong></p>
+            <p><strong>Reference:</strong>ICA123</p>
+            <p><strong>Reports To:</strong> Chief Information Security Officer</p>
+            <p><strong>Job Description:</strong> We are seeking a Junior Cyber Security Analyst to join CP SOC. If you want to break into Cyber Security, or seeking to move into a new role, while being part of a high performance team, which is committed to your professional growth, with a mission focused on defending critical national infrastructure, then this is the job for you.</p>
             <p><strong>Responsibilities:</strong></p>
             <ul>
                 <li>Analysis of security events from multiple sources including but not limited to events from the Security Information and Event Management tool, network intrusion systems and Host based Intrusion Prevention tools (AV, HIPS, Application Whitelisting).</li>
@@ -45,7 +44,7 @@
                     <li>Experience with forensic analysis and incident response.</li>
                 </ul>
             </ul>
-    
+        </div>
     </section>
 	<aside>
     <a href="apply.html" class="cta apply-btn">Apply Now</a>
