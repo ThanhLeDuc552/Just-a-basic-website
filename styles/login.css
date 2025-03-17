@@ -10,30 +10,105 @@ body {
 
 main {
     flex: 1;
-}
-
-.container {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 100%;
 }
 
 .login-info {
-    width: 50%;
+    max-width: 400px;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.picture {
-    width: 50%;
+.login-info h1 {
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
 }
 
-.opt-box {
-	max-width: 300px;
-	height: 40px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	outline: none;
-	font-size: 15px;
+.login-info h1:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 3px;
+    width: 60px;
+    background: linear-gradient(90deg, #d965d6, #7d73e0);
+    border-radius: 3px;
+}
+
+.input-field {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.input-field .icon {
+    position: absolute;
+    left: 12px;
+    top: 38px;
+    color: #999;
+    font-size: 1rem;
+}
+
+.input-field .opt-box {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.input-field .opt-box:focus {
+    border-color: #d965d6;
+    box-shadow: 0 0 0 2px rgba(217, 101, 214, 0.1);
+    outline: none;
+    background-color: #fff;
+}
+
+.input-field .opt-box::placeholder {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+/* Add login button style */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #d965d6, #7d73e0);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 4px 10px rgba(125, 115, 224, 0.3);
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(125, 115, 224, 0.4);
+}
+
+.login-button:active {
+    transform: translateY(1px);
 }

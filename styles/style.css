@@ -80,58 +80,110 @@ section img {
 
 /* Navigation bar */
 header {
-	background-color: #ffffff;
-	box-shadow: none;
-	max-width: 100%;
+    background-color: #ffffff;
+    box-shadow: none;
+    width: 100%;
 }
 
 header .container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	position: relative;
-	height: 43px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 60px;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 header .container .logo {
-	font-size: 1.5rem;
-	font-weight: bold;
-	color: #1f2937;
-}
-
-header nav {
-	display: none;
-	flex-direction: column;
-	position: absolute;
-	top: 100%;
-	right: 0;
-	background: #faf5fc;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	text-align: center;
-	width: 100%
-}
-
-header nav a {
-	color: #4b5563;
-	padding: 1rem;
-	text-decoration: none;
-	display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
 }
 
 .menu-icon {
-	font-size: 2rem;
-	cursor: pointer;
-	display: block;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: block;
 }
 
 #menu-toggle {
-	display: none;
+    display: none;
 }
 
-#menu-toggle:checked~nav {
-	display: flex;
-	flex-direction: column;
-	position: absolute;
+header nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #faf5fc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    z-index: 100;
+}
+
+header nav a {
+    color: #4b5563;
+    padding: 1rem;
+    text-decoration: none;
+    display: block;
+}
+
+header nav a.btn-link {
+    padding: 0;
+    text-decoration: none;
+    display: inline;
+    margin: 0;
+}
+
+
+
+#menu-toggle:checked ~ nav {
+    display: flex;
+}
+
+/* Button styles */
+.btn {
+    padding: 0.4rem 0.8rem;
+    margin: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+	height: 80%;
+}
+  
+.login-btn {
+    background-color: transparent;
+    color: #d965d6;
+    border: 2px solid #d965d6;
+}
+  
+.login-btn:hover {
+    background-color: rgba(217, 101, 214, 0.1);
+    box-shadow: 0 2px 8px rgba(217, 101, 214, 0.3);
+}
+  
+.register-btn {
+    background: linear-gradient(135deg, #d965d6, #7d73e0);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 10px rgba(125, 115, 224, 0.3);
+}
+  
+.register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(125, 115, 224, 0.4);
+}
+  
+.register-btn:active, .login-btn:active {
+    transform: translateY(1px);
 }
 
 /* Job Card */
@@ -253,28 +305,51 @@ footer a:hover {
 	header nav a:hover {
 		background-color: #c683e0;
 	}
+
+	header nav a.btn-link:hover {
+		background: none;
+	}
 }
 
+/* Desktop styles */
 @media (min-width: 768px) {
-	header nav {
-		display: flex;
-		justify-content: flex-end;
-		box-shadow: none;
-		flex-direction: row;
-		position: static;
-	}
+    .menu-icon {
+        display: none;
+    }
+    
+    header nav {
+        display: flex !important; /* Important to override the checkbox state */
+        justify-content: flex-end;
+        flex-direction: row;
+        position: static;
+        background: transparent;
+        box-shadow: none;
+        width: auto;
+        align-items: center;
+    }
 
-	header nav a {
-		margin-right: 1.5rem;
-		padding: 0;
-		display: inline-block;
-	}
+    header nav a {
+        margin-right: 1.5rem;
+        padding: 0;
+        display: inline-block;
+    }
 
-	header nav a:hover {
-		text-decoration: underline;
-	}
+    header nav a:hover {
+        text-decoration: underline;
+    }
 
-	.menu-icon {
-		display: none;
-	}
+	header nav a.btn-link {
+        margin-right: 0;
+    }
+    
+    header nav a.btn-link:hover {
+        text-decoration: none;
+    }
+    
+    /* Button adjustments for desktop */
+    header nav .btn {
+        margin-left: 0.5rem;
+        height: auto;
+        padding: 0.4rem 0.8rem;
+    }
 }

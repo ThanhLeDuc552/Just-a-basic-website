@@ -17,7 +17,7 @@
     <h2>Submit Your Application</h2>
     <form action="process_eoi.php" method="post" novalidate>
       <label for="jobref">Job Reference Number:</label>
-      <input type="text" id="jobref" name="job-ref" pattern="[A-Za-z0-9]{5}" required maxlength="5" placeholder="e.g., TC001" value="<?php $value = isset($_GET['job-ref']) ? $_GET['job-ref'] : ""; echo $value;?>">
+      <input type="text" id="jobref" name="job-ref" pattern="[A-Za-z0-9]{5}" required maxlength="6" placeholder="e.g., TC001" value="<?php $value = isset($_GET['job-ref']) ? $_GET['job-ref'] : ""; echo $value;?>">
 
       <label for="fname">First Name:</label>
       <input type="text" id="fname" name="first_name" pattern="[A-Za-z]{1,20}" required maxlength="20" placeholder="John">

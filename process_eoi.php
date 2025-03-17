@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once 'settings.php';
+include_once 'settings.php';
+include 'functions.inc';
 
 // Enable error reporting for debugging
 ini_set('display_errors', 1);
@@ -9,14 +10,6 @@ error_reporting(E_ALL);
 
 // Log form submission
 error_log("Form submitted: " . print_r($_POST, true));
-
-// Sanitize input function
-function sanitize_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
 
 // Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -157,19 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_num_rows($job_result) == 0) {
         $errors['job_ref'] = "Invalid job reference number";
     } 
-    // Check if job reference exists in the database (modify the job info if needed)
-    /* else {
-        // Check if job has expired
-        $job_details = mysqli_fetch_assoc($job_result);
-        $closing_date = new DateTime($job_details['ClosingDate']);
-        $today = new DateTime();
 
-        if ($today > $closing_date) {
-            $errors['general'][] = "This job posting has closed. Applications are no longer being accepted.";
-        }
-    }
-    */
-    
     // If there are validation errors
     if (!empty($errors)) {
         $_SESSION['form_errors'] = $errors;

@@ -11,23 +11,19 @@
 <body>
     <?php include_once("header.inc")?>
     <main>
-        <div class="container">
-            <div class="login-info">
-                <h1>Manager Login</h1>
-                <div class="input-field">
-                    <label for="username">Username</label>
-                    <span class="icon">✉</span>
-                    <input type="text" name="username" class="opt-box" id="username" placeholder="Username or Email">
-                </div>
-                <div class="input-field">
-                    <label for="password">Password</label>
-                    <span class="icon"></span>
-                    <input type="text" name="password" class="opt-box" id="password" placeholder="Password">
-                </div>
+        <div class="login-info">
+            <h1>Manager Login</h1>
+            <div class="input-field">
+                <label for="username">Username</label>
+                <span class="icon">📧</span>
+                <input type="text" name="username" class="opt-box" id="username" placeholder="Username or Email">
             </div>
-            <div class="picture">
-                <img src="styles/images/business_man.png" alt="">
+            <div class="input-field">
+                <label for="password">Password</label>
+                <span class="icon">🔒</span>
+                <input type="password" name="password" class="opt-box" id="password" placeholder="Password">
             </div>
+            <button class="login-button">Login</button>
         </div>
     </main>
     <?php include_once("footer.inc")?>

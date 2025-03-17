@@ -106,6 +106,10 @@
 	padding-inline-start: 1rem;
 }
 
+.apply-section li {
+	margin-bottom: 8px;
+}
+
 /* Section 6 */
 .review-card {
 	background: white;

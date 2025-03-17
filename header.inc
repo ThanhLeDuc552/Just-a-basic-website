@@ -24,6 +24,8 @@
 			<a href="enhancements.php">
 			Enhancements
 			</a>
+			<a class="btn-link" href="login.php"><button class='btn login-btn'>Login</button></a>
+			<a class="btn-link" href="register.php"><button class='btn register-btn'>Register</button></a>
 		</nav>
 	</div>
 </header>
