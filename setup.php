@@ -6,6 +6,7 @@ $sql_drop_eoi = "DROP TABLE IF EXISTS eoi";
 $sql_drop_jobs = "DROP TABLE IF EXISTS jobs";
 $sql_drop_managers = "DROP TABLE IF EXISTS managers";
 $sql_drop_login_attempts = "DROP TABLE IF EXISTS login_attempts";
+
 if (mysqli_query($conn, $sql_drop_eoi)) {
     echo "EOI table deleted successfully<br>";
 } else {
@@ -64,21 +65,24 @@ $sql_jobs = "CREATE TABLE IF NOT EXISTS jobs (
 
 // Create Managers table
 $sql_managers = "CREATE TABLE IF NOT EXISTS managers (
-  ManagerID INT AUTO_INCREMENT PRIMARY KEY,
-  Username VARCHAR(50) UNIQUE NOT NULL,
-  Password VARCHAR(255) NOT NULL,
-  FirstName VARCHAR(50) NOT NULL,
-  LastName VARCHAR(50) NOT NULL,
-  Email VARCHAR(255) NOT NULL
+    ManagerID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) UNIQUE NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    LastLogin DATETIME,
+    AccountLocked BOOLEAN DEFAULT FALSE,
+    LockUntil DATETIME
 )";
-
+  
 // Create Login Attempts table
 $sql_login_attempts = "CREATE TABLE IF NOT EXISTS login_attempts (
-  AttemptID INT AUTO_INCREMENT PRIMARY KEY,
-  Username VARCHAR(50) NOT NULL,
-  AttemptTime DATETIME NOT NULL,
-  IPAddress VARCHAR(45) NOT NULL,
-  Success BOOLEAN NOT NULL
+    AttemptID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL,
+    AttemptTime DATETIME NOT NULL,
+    IPAddress VARCHAR(45) NOT NULL,
+    Success BOOLEAN NOT NULL
 )";
 
 // Execute queries

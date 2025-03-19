@@ -11,7 +11,6 @@
 <body>
     <?php include_once("header.inc")?>
     <?php 
-        session_start();
         include "settings.php";
         include "functions.inc";
         $job_ref = isset($_GET['job-ref']) ? sanitize_input($_GET['job-ref']) : '';

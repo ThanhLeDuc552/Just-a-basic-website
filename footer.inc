@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="footer-column">
 			<h3>Etech.</h3>
-			<p>Explore a transformative approach to skill development on our online learning platform.</p>
+			<p>Immerse yourself in a world of technologies</p>
 			<div class="social-icons">
 				<a href="#">&#9679;</a>
 				<a href="#">&#9679;</a>
@@ -11,8 +11,8 @@
 		</div>
 		<div class="footer-column">
 			<h3>Company</h3>
-			<a href="#">About Us</a>
-			<a href="#">Apply Now</a>
+			<a href="about.php">About Us</a>
+			<a href="jobs.php">Apply Now</a>
 		</div>
 		<div class="footer-column">
 			<h3>Contact Us</h3>

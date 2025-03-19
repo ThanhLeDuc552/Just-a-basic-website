@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once 'settings.php';
 include 'functions.inc';
 
@@ -40,8 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Field-specific validation
     if (empty($job_ref)) {
         $errors['job_ref'] = "Job reference number is required";
-    } elseif (!preg_match("/^[A-Za-z0-9]{5}$/", $job_ref)) {
-        $errors['job_ref'] = "Job reference must be 5 alphanumeric characters";
     }
 
     if (empty($first_name)) {
@@ -219,7 +216,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 } else {
-    // Not a POST request, redirect to form
+    // Not a POST request, redirect to fo rm
     header("Location: apply.php");
     exit();
 }

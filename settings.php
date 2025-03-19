@@ -1,9 +1,9 @@
 <?php
 $host = "feenix-mariadb.swin.edu.au";
 $port = "3306";
-$username = "s105548505";
-$password = "011106";
-$database = "s105548505_db";
+$username = "s105548505"; // your username
+$password = "011106";  // your password
+$database = "s105548505_db"; // your database
 
 // Create connection
 $conn = mysqli_connect($host, $username, $password, $database, $port);

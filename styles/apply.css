@@ -40,3 +40,61 @@
 .form-container button:hover {
   opacity: 0.9;
 }
+
+.skills-container {
+  margin-bottom: 1.5rem;
+}
+
+.skills-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: #4b5563;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.checkbox-item {
+  position: relative;
+  user-select: none;
+}
+
+.checkbox-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-item label {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #f3e8f8;
+  border: 2px solid #e9d8f5;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkbox-item input[type="checkbox"]:checked + label {
+  background: linear-gradient(90deg, #d965d6, #7d73e0);
+  color: white;
+  border-color: transparent;
+}
+
+.checkbox-item input[type="checkbox"]:focus + label {
+  box-shadow: 0 0 0 3px rgba(125, 115, 224, 0.3);
+}
+
+.checkbox-item label:hover {
+  background-color: #e9d8f5;
+}
+
+.checkbox-item input[type="checkbox"]:checked + label:hover {
+  opacity: 0.9;
+}

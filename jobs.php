@@ -17,58 +17,53 @@
 		<?php include 'settings.php' ?>
 		<!-- Section 3: Job search -->
 		<main>
-			<section class="bg-white">
+			<section class="bg-white" id="job-search">
 				<div class="container">
 					<h2>
 						Search Jobs
 					</h2>
-					<div class="bg-white">
-						<form action="jobs.php" method="get">
-							<div class="filter-options">
-								<div class="filter-group">
-									<label for="loc">Location</label><br>
-									<select name="loc" id="loc" class="opt-box">
-										<option value="">All</option>
-										<?php 
-										$cmd = "SELECT DISTINCT Location FROM jobs order by Location";
-										$result = mysqli_query($conn, $cmd);
-										while ($row = mysqli_fetch_assoc($result)) {
-											echo "<option value='" . $row['Location'] . "'>" . $row['Location'] . "</option>";
-										}
-										?>
-									</select>
-								</div>
-								<div class="filter-group">
-									<label for="contract">Contract</label><br>
-									<select id="contract" class="opt-box" name="contract">
-										<option value="">All</option>
-										<?php 
-										$cmd = "SELECT DISTINCT Position FROM jobs order by Position";
-										$result = mysqli_query($conn, $cmd);
-										while ($row = mysqli_fetch_assoc($result)) {
-											echo "<option value='" . $row['Position'] . "'>" . $row['Position'] . "</option>";
-										}
-										?>
-									</select>
-								</div>
-								<div class="filter-group">
-									<label for="input">Keyword</label><br>
-									<input id="input" class="opt-box" placeholder="Search for your position" type="text" value="<?php echo isset($_GET['input']) ? $_GET['input'] : ''; ?>" name="input">
-								</div>
-								<div class="actions"><button type="submit">Filter</button></div>
+					<form action="jobs.php" method="get">
+						<div class="filter-options">
+							<div class="filter-group">
+								<label for="loc">Location</label><br>
+								<select name="loc" id="loc" class="opt-box">
+									<option value="">All</option>
+									<?php 
+									$cmd = "SELECT DISTINCT Location FROM jobs order by Location";
+									$result = mysqli_query($conn, $cmd);
+									while ($row = mysqli_fetch_assoc($result)) : ?>
+										<option value='<?php echo $row['Location']; ?>' <?php echo (isset($_GET["loc"]) && $_GET["loc"] === $row['Location']) ? 'selected' : ''; ?>><?php echo $row['Location']; ?></option>
+									<?php endwhile; ?>
+								</select>
 							</div>
-						</form>
-					</div>
+							<div class="filter-group">
+								<label for="contract">Contract</label><br>
+								<select id="contract" class="opt-box" name="contract">
+									<option value="">All</option>
+									<?php 
+									$cmd = "SELECT DISTINCT Position FROM jobs order by Position";
+									$result = mysqli_query($conn, $cmd);
+									while ($row = mysqli_fetch_assoc($result)) : ?>
+										<option value='<?php echo $row['Position']; ?>' <?php echo (isset($_GET["contract"]) && $_GET["contract"] === $row['Position']) ? 'selected' : ''; ?>><?php echo $row['Position']; ?></option>
+									<?php endwhile; ?>
+								</select>
+							</div>
+							<div class="filter-group">
+								<label for="input">Keyword</label><br>
+								<input id="input" class="opt-box" placeholder="Search for your position" type="text" value="<?php echo isset($_GET['input']) ? $_GET['input'] : ''; ?>" name="input">
+							</div>
+							<div class="filter-group"><button type="submit" class="btn btn-general">Filter</button></div>
+						</div>
+					</form>
 				</div>
 			</section>
 			<!-- Section 4: Jobs -->
-			<section class="bg-white job-listings">
+			<section class="bg-white" id="job-listing">
 				<div class="container">
 					<?php 
 					$sql = "SELECT * FROM jobs WHERE 1=1";
 					$params = [];
 					$types = "";
-			
 					if (isset($_GET['contract']) && !empty($_GET['contract'])) {
 						$sql .= " AND Position = ?";
 						$params[] = $_GET['contract'];
@@ -81,7 +76,7 @@
 						$types .= "s";
 					}
 			
-					if (isset($_GET['input']) && !empty($_GET['input']) && $_GET['input'] != "") {
+					if (isset($_GET['input']) && !empty($_GET['input'])) {
 						$sql .= " AND (Title LIKE ? OR Description LIKE ?)";
 						$keyword = "%" . $_GET['input'] . "%";
 						$params[] = $keyword;
@@ -102,24 +97,32 @@
 					} else { 
 						echo "<div class=\"card-align\">";
 						while ($row = mysqli_fetch_assoc($result)) {
-							echo "<div class=\"job-card\">";
-							echo "<a href=\"job.php?job-ref=" . $row['JobReferenceNumber'] . "\">";
-							echo "<h3 class=\"title\">" . $row["Title"] . "</h3>";
-							//echo "<img alt=\"random\" src=\"image.png\">";
-							echo "<div class=\"location\">";
-							echo "<span class=\"tag\">" . $row["Location"]. "</span>";
-							echo "<span class=\"jobref\">" . $row["JobReferenceNumber"] . "</span>";
-							echo "</div>";
-							
-							echo "<div class=\"price-instructor\">";
-							echo "<div class=\"price\">" . $row["Salary"] . "</div>";
-							echo "</div>";
-							echo "</a>";
-							echo "</div>";
+							echo "<div class=\"job-card\">
+									<div class=\"job-card-header\">
+										<h2 class=\"job-title\">" . $row["Title"] . "</h2>
+									</div>
+									<div class=\"job-card-body\">
+										<div class=\"job-detail\">
+											<div class=\"detail-label\">Location:</div>
+        									<div class=\"detail-value\">" . $row["Location"] . "</div>
+      									</div>
+      									<div class=\"job-detail\">
+        									<div class=\"detail-label\">Salary Range:</div>
+        									<div class=\"detail-value\">" . $row["Salary"] . "</div>
+      									</div>
+      									<div class=\"job-detail\">
+        									<div class=\"detail-label\">Reference Code:</div>
+        									<div class=\"detail-value\">" . $row["JobReferenceNumber"] . "</div>
+      									</div>
+    								</div>
+    								<div class=\"job-card-footer\">
+      									<a href=\"apply.php?job-ref=" . $row["JobReferenceNumber"] . "\"><button class=\"btn btn-general\">Apply Now</button></a>
+										<a href=\"job.php?job-ref=" . $row["JobReferenceNumber"] . "\"><button class=\"btn btn-general\">Discover</button></a>
+    								</div>
+  								</div>";
 						}
 						echo "</div>";
 					}
-
 					mysqli_close($conn);
 					?>
 				</div>

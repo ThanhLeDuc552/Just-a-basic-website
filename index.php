@@ -14,7 +14,7 @@
 		<!-- Navigation Bar -->
 		<?php include_once 'header.inc'; ?>
 		<!-- Section 1: Introduction -->
-		<section class="bg-white introduction">
+		<section class="bg-white" id="introduction">
 			<div class="container">
 				<!-- Container box -->
 				<div>
@@ -25,13 +25,13 @@
 						Etech drives digital transformation with AI, cloud, and software solutions, optimizing businesses and enhancing customer experiences. With a dynamic culture and focus on learning, we attract top tech talent.            
 					</p>
 				</div>
-				<div id="business-man-image">
+				<div class="img">
 					<img alt="A smiling entrepeneur" src="styles/images/business_man.png">
 				</div>
 			</div>
 		</section>
 		<!-- Section 2: nha tai tro -->
-		<section class="bg-purple-100">
+		<section class="bg-purple-100" id="technology">
 			<div class="container">
 				<!-- Container box -->
 				<div class="logo-grid">
@@ -43,145 +43,47 @@
 			</div>
 		</section>
 		<!-- Section 3: Job search -->
-		<section class="bg-white">
+		<section class="bg-white" id="benefit">
 			<div class="container">
-				<div class="benefit">
-					<!-- Container box -->
-					<div class="img">
-						<img alt="Working" src="styles/images/working.png">
-					</div>
-					<div class="content">
-						<h2><span class="highlight">Benefits</span> When Working in the Company</h2>
-						<div class="benefit-item">
-							<div class="icon"><img src="styles/images/work-life-balance.png" alt="icon"></div>
-							<div class="text">
-								<h3>Work-Life Balance</h3>
-								<p>Flexible schedules and remote work options.</p>
-							</div>
-						</div>
-						<div class="benefit-item">
-							<div class="icon"><img src="styles/images/career-growth.png" alt="icon"></div>
-							<div class="text">
-								<h3>Career Growth</h3>
-								<p>Training programs and mentorship opportunities.</p>
-							</div>
-						</div>
-						<div class="benefit-item">
-							<div class="icon"><img src="styles/images/competitive-salary.png" alt="icon"></div>
-							<div class="text">
-								<h3>Competitive Salary</h3>
-								<p>Above industry-average compensation packages.</p>
-							</div>
-						</div>
-						<div class="benefit-item">
-							<div class="icon"><img src="styles/images/wellbeing.png" alt="icon"></div>
-							<div class="text">
-								<h3>Wellbeing</h3>
-								<p>Comprehensive insurance and wellness programs.</p>
-							</div>
-						</div>
-					</div>
+				<div class="img">
+					<img alt="Working" src="styles/images/working.png">
 				</div>
-			</div>
-		</section>
-		<!-- Section 4: Jobs -->
-		<section class="bg-purple-100 jobs">
-			<div>
-				<h2>
-					Our Popular Positions
-				</h2>
-				<p>
-					Etech offers a range of career opportunities across various tech domains. 
-				</p>
-			</div>
-			<div class="container">
-				<div class="card-align">
-					<div class="job-card">
-						<a href="page1.php">
-						<img alt="cybersecurity analyst" src="styles/images/cybersecurity.webp">
-						<div class="location"><span class="tag">Da Nang City</span></div>
-						<h3 class="title">
-							Cybersecurity Analyst
-						</h3>
-						<div class="price-instructor">
-							<div class="price">$205.000 - $300.000</div>
+				<div class="content">
+					<h2><span class="highlight">Benefits</span> When Working in the Company</h2>
+					<div class="benefit-item">
+						<div class="icon"><img src="styles/images/work-life-balance.png" alt="icon"></div>
+						<div class="text">
+							<h3>Work-Life Balance</h3>
+							<p>Flexible schedules and remote work options.</p>
 						</div>
-						</a>
 					</div>
-					<div class="job-card">
-						<a href="page2.php">
-						<img alt="software engineer" src="styles/images/software-engineer.png">
-						<div class="location"><span class="tag">Ho Chi Minh City</span></div>
-						<h3 class="title">
-							Software Engineer
-						</h3>
-						<div class="price-instructor">
-							<div class="price">$100.500 - $250.000</div>
+					<div class="benefit-item">
+						<div class="icon"><img src="styles/images/career-growth.png" alt="icon"></div>
+						<div class="text">
+							<h3>Career Growth</h3>
+							<p>Training programs and mentorship opportunities.</p>
 						</div>
-						</a>
 					</div>
-					<div class="job-card">
-						<a href="page3.php">
-						<img alt="AI engineer" src="styles/images/artificial-intelligence.png">
-						<div class="location"><span class="tag">Ha Noi City</span></div>
-						<h3 class="title">
-							AI Engineer
-						</h3>
-						<div class="price-instructor">
-							<div class="price">$130.000 - $203.600</div>
+					<div class="benefit-item">
+						<div class="icon"><img src="styles/images/competitive-salary.png" alt="icon"></div>
+						<div class="text">
+							<h3>Competitive Salary</h3>
+							<p>Above industry-average compensation packages.</p>
 						</div>
-						</a>
 					</div>
-				</div>
-			</div>
-		</section>
-		<!-- Section 5: Application -->
-		<section class="bg-white apply-section">
-			<div class="container">
-				<!-- Container box -->
-				<div class="apply">
-					<h2>
-						Sounds Intriguing Enough ? Come To Us By Applying !
-					</h2>
-					<p>
-						Employees at Etech enjoy a range of benefits designed to foster professional growth and work-life balance.
-					</p>
-					<ul>
-						<li>
-							Competitive Salaries & Performance Bonuses
-						</li>
-						<li>
-							Flexible Work Arrangements (Hybrid/Remote Options)
-						</li>
-						<li>
-							Comprehensive Health & Wellness Benefits
-						</li>
-						<li>
-							Ongoing Learning & Development Programs
-						</li>
-						<li>
-							Employee Stock Options & Retirement Plans
-						</li>
-						<li>
-							Tech Stipends & Cutting-Edge Work Tools
-						</li>
-					</ul>
-					<div class="actions">
-						<a href="apply.html">
-							<button>Apply Now</button>
-						</a>
-					</div>
-				</div>
-				<div class="apply">
-					<div>
-						<img alt="Cheering" src="styles/images/cheering.png">
+					<div class="benefit-item">
+						<div class="icon"><img src="styles/images/wellbeing.png" alt="icon"></div>
+						<div class="text">
+							<h3>Wellbeing</h3>
+							<p>Comprehensive insurance and wellness programs.</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!-- Section 6: Reviewer -->
-		<section class="bg-purple-100">
-			<div class="container">
+		<section class="bg-purple-100" id="review">
+			<div class="container" id="container-one">
 				<!-- Container box -->
 				<div>
 					<h2>
@@ -193,7 +95,7 @@
 				</div>
 			</div>
 			<div class="container">
-				<div class="card-align">
+				<div id="card-align">
 					<div class="review-card">
 						<img src="styles/images/anh.jpg" alt="Lê Kim Anh">
 						<h3 class="reviewer-name">Lê Kim Anh</h3>
@@ -222,6 +124,49 @@
 						<div class="stars">★★★★★</div>
 						<p class="reviewer-review">The leader is very supportive and encourages us to grow professionally. I feel valued and respected!</p>
 					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Section 5: Application -->
+		<section class="bg-white" id="apply">
+			<div class="container">
+				<!-- Container box -->
+				<div id="apply-content">
+					<h2>
+						Sounds Intriguing Enough ? Come To Us By Applying !
+					</h2>
+					<p>
+						Employees at Etech enjoy a range of benefits designed to foster professional growth and work-life balance.
+					</p>
+					<ul>
+						<li>
+							Competitive Salaries & Performance Bonuses
+						</li>
+						<li>
+							Flexible Work Arrangements (Hybrid/Remote Options)
+						</li>
+						<li>
+							Comprehensive Health & Wellness Benefits
+						</li>
+						<li>
+							Ongoing Learning & Development Programs
+						</li>
+						<li>
+							Employee Stock Options & Retirement Plans
+						</li>
+						<li>
+							Tech Stipends & Cutting-Edge Work Tools
+						</li>
+					</ul>
+					<div class="actions">
+						<a href="apply.html">
+							<button class="btn btn-general">Apply Now</button>
+						</a>
+					</div>
+				</div>
+				<div id="img">
+					<img alt="Cheering" src="styles/images/cheering.png">
 				</div>
 			</div>
 		</section>
