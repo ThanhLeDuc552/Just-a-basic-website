@@ -1,25 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/confirmation.css">
-    <link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-</head>
-<body>
+<?php 
+$title = 'Confirmation';
+$style = 'confirmation.css';
+include_once 'initial_page_settings.inc';
+?>
+
 <?php
 session_start();
-// Debug information (remove in production)
-// FIXED: There was a typo in the session variable check
-// Old (with typo): if (!isset($_SESSION['applicatapplication_confirmation.phpion_success']) || !$_SESSION['application_success'])
-// New (corrected):
 if (!isset($_SESSION['application_success']) || $_SESSION['application_success'] !== true) {
     header("Location: index.php");
     exit();
 }
-
 $eoi_number = isset($_SESSION['eoi_number']) ? $_SESSION['eoi_number'] : 'Unknown';
 ?>
 
@@ -27,7 +17,7 @@ $eoi_number = isset($_SESSION['eoi_number']) ? $_SESSION['eoi_number'] : 'Unknow
     <section class="confirmation">
         <div class="confirmation-box">
             <div class="confirmation-icon">
-                <img src="styles/images/success-icon.svg" alt="Success">
+                <img src="styles/images/logo/success-icon.svg" alt="Success">
             </div>
             <h2>Application Submitted Successfully</h2>
 
@@ -57,6 +47,5 @@ $eoi_number = isset($_SESSION['eoi_number']) ? $_SESSION['eoi_number'] : 'Unknow
 unset($_SESSION['application_success']);
 unset($_SESSION['eoi_number']);
 ?>
-
 </body>
 </html>

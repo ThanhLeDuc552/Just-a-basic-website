@@ -3,7 +3,7 @@
 	<div class="container">
 		<!-- Container box -->
 		<div class="logo">
-			<img src="styles/images/logo.png" alt="Etech Logo">
+			<img src="styles/images/logo/logo.png" alt="Etech Logo">
 		</div>
     	<input type="checkbox" id="menu-toggle">
 		<label for="menu-toggle" id="menu-icon">

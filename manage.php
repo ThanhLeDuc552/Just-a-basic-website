@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Etech - HR Management</title>
-		<link rel="stylesheet" href="styles/style.css">
-		<link rel="stylesheet" href="styles/manage.css">
-		<link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-	</head>
-	<body>
+		<?php 
+		$title = 'HR Manager Dashboard';
+		$style = 'manage.css';
+		include_once 'initial_page_settings.inc';
+		?>
 		<?php
 			include_once 'header.inc';
 			include_once 'settings.php';
@@ -250,21 +244,21 @@
 								<input type="hidden" name="action" value="update_status">
 								<input type="hidden" name="eoi_id" value="<?php echo $eoi_details['EOInumber']; ?>">
 								<input type="hidden" name="new_status" value="New">
-								<button type="submit" class="btn btn-primary">Set as New</button>
+								<button type="submit" class="btn btn-login">Set as New</button>
 							</form>
 							<form method="post" action="manage.php" class="inline-form">
 								<input type="hidden" name="action" value="update_status">
 								<input type="hidden" name="eoi_id" value="<?php echo $eoi_details['EOInumber']; ?>">
 								<input type="hidden" name="new_status" value="Current">
-								<button type="submit" class="btn btn-primary">Set as Current</button>
+								<button type="submit" class="btn btn-login">Set as Current</button>
 							</form>
 							<form method="post" action="manage.php" class="inline-form">
 								<input type="hidden" name="action" value="update_status">
 								<input type="hidden" name="eoi_id" value="<?php echo $eoi_details['EOInumber']; ?>">
 								<input type="hidden" name="new_status" value="Final">
-								<button type="submit" class="btn btn-primary">Set as Final</button>
+								<button type="submit" class="btn btn-login">Set as Final</button>
 							</form>
-							<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=<?php echo urlencode($sort_by); ?>&order=<?php echo urlencode($sort_order); ?>&page=<?php echo $page; ?>" class="btn btn-secondary">Back to List</a>
+							<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=<?php echo urlencode($sort_by); ?>&order=<?php echo urlencode($sort_order); ?>&page=<?php echo $page; ?>" class="btn btn-register">Back to List</a>
 						</div>
 					</div>
 				</section>
@@ -305,8 +299,8 @@
 							<input type="hidden" name="sort" value="<?php echo htmlspecialchars($sort_by); ?>">
 							<input type="hidden" name="order" value="<?php echo htmlspecialchars($sort_order); ?>">
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">Apply Filters</button>
-								<a href="manage.php" class="btn btn-secondary">Reset Filters</a>
+								<button type="submit" class="btn btn-login">Apply Filters</button>
+								<a href="manage.php" class="btn btn-register">Reset Filters</a>
 							</div>
 						</form>
 					</div>
@@ -332,7 +326,7 @@
 							</div>
 							<div class="form-actions">
 								<!-- JavaScript consideration -->
-								<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete all applications for this job reference? This action cannot be undone.');">Delete All</button>
+								<button type="submit" class="btn btn-logout" id="btn-delete" onclick="return confirm('Are you sure you want to delete all applications for this job reference? This action cannot be undone.');">Delete All</button>
 							</div>
 						</form>
 					</div>
@@ -348,82 +342,84 @@
 								<option value="Current">Current</option>
 								<option value="Final">Final</option>
 							</select>
-							<button type="submit" class="btn btn-primary">Update Selected</button>
+							<button type="submit" class="btn btn-login">Update Selected</button>
 						</div>
-						<table class="data-table">
-							<thead>
-								<tr>
-									<th><input type="checkbox" onclick="toggleAll(this)"></th>
-									<th>
-										<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=EOInumber&order=<?php echo ($sort_by == 'EOInumber' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
-										EOI #
-										<?php if ($sort_by == 'EOInumber'): ?>
-										<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
-										<?php endif; ?>
-										</a>
-									</th>
-									<th>
-										<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=JobReferenceNumber&order=<?php echo ($sort_by == 'JobReferenceNumber' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
-										Job Ref
-										<?php if ($sort_by == 'JobReferenceNumber'): ?>
-										<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
-										<?php endif; ?>
-										</a>
-									</th>
-									<th>
-										<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=FirstName&order=<?php echo ($sort_by == 'FirstName' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
-										First Name
-										<?php if ($sort_by == 'FirstName'): ?>
-										<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
-										<?php endif; ?>
-										</a>
-									</th>
-									<th>
-										<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=LastName&order=<?php echo ($sort_by == 'LastName' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
-										Last Name
-										<?php if ($sort_by == 'LastName'): ?>
-										<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
-										<?php endif; ?>
-										</a>
-									</th>
-									<th>Email</th>
-									<th>
-										<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=Status&order=<?php echo ($sort_by == 'Status' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
-										Status
-										<?php if ($sort_by == 'Status'): ?>
-										<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
-										<?php endif; ?>
-										</a>
-									</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php while ($row = mysqli_fetch_assoc($result)): ?>
-								<tr class="status-<?php echo strtolower($row['Status']); ?>">
-									<td>
-										<input type="checkbox" name="selected_eois[]" value="<?php echo $row['EOInumber']; ?>">
-									</td>
-									<td><?php echo $row['EOInumber']; ?></td>
-									<td><?php echo htmlspecialchars($row['JobReferenceNumber']); ?></td>
-									<td><?php echo htmlspecialchars($row['FirstName']); ?></td>
-									<td><?php echo htmlspecialchars($row['LastName']); ?></td>
-									<td><?php echo htmlspecialchars($row['Email']); ?></td>
-									<td>
-										<span class="status-badge status-<?php echo strtolower($row['Status']); ?>">
-										<?php echo $row['Status']; ?>
-										</span>
-									</td>
-									<td>
-										<div class="action-buttons">
-											<a href="manage.php?view_eoi=<?php echo $row['EOInumber']; ?>&job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=<?php echo urlencode($sort_by); ?>&order=<?php echo urlencode($sort_order); ?>&page=<?php echo $page; ?>" class="btn btn-small">View</a>
-											<!-- EOI Status Modifying --> 
-										</div>
-					                </td>
-					            </tr>
-					            <?php endwhile; ?>
-					        </tbody>
-					    </table>
+						<div class="table-wrapper">
+							<table class="data-table">
+								<thead>
+									<tr>
+										<th><input type="checkbox" onclick="toggleAll(this)"></th>
+										<th>
+											<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=EOInumber&order=<?php echo ($sort_by == 'EOInumber' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
+											EOI #
+											<?php if ($sort_by == 'EOInumber'): ?>
+											<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
+											<?php endif; ?>
+											</a>
+										</th>
+										<th>
+											<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=JobReferenceNumber&order=<?php echo ($sort_by == 'JobReferenceNumber' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
+											Job Ref
+											<?php if ($sort_by == 'JobReferenceNumber'): ?>
+											<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
+											<?php endif; ?>
+											</a>
+										</th>
+										<th>
+											<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=FirstName&order=<?php echo ($sort_by == 'FirstName' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
+											First Name
+											<?php if ($sort_by == 'FirstName'): ?>
+											<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
+											<?php endif; ?>
+											</a>
+										</th>
+										<th>
+											<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=LastName&order=<?php echo ($sort_by == 'LastName' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
+											Last Name
+											<?php if ($sort_by == 'LastName'): ?>
+											<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
+											<?php endif; ?>
+											</a>
+										</th>
+										<th>Email</th>
+										<th>
+											<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=Status&order=<?php echo ($sort_by == 'Status' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
+											Status
+											<?php if ($sort_by == 'Status'): ?>
+											<span class="sort-indicator"><?php echo ($sort_order == 'ASC') ? '▲' : '▼'; ?></span>
+											<?php endif; ?>
+											</a>
+										</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php while ($row = mysqli_fetch_assoc($result)): ?>
+									<tr class="status-<?php echo strtolower($row['Status']); ?>">
+										<td>
+											<input type="checkbox" name="selected_eois[]" value="<?php echo $row['EOInumber']; ?>">
+										</td>
+										<td><?php echo $row['EOInumber']; ?></td>
+										<td><?php echo htmlspecialchars($row['JobReferenceNumber']); ?></td>
+										<td><?php echo htmlspecialchars($row['FirstName']); ?></td>
+										<td><?php echo htmlspecialchars($row['LastName']); ?></td>
+										<td><?php echo htmlspecialchars($row['Email']); ?></td>
+										<td>
+											<span class="status-badge status-<?php echo strtolower($row['Status']); ?>">
+											<?php echo $row['Status']; ?>
+											</span>
+										</td>
+										<td>
+											<div class="action-buttons">
+												<a href="manage.php?view_eoi=<?php echo $row['EOInumber']; ?>&job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=<?php echo urlencode($sort_by); ?>&order=<?php echo urlencode($sort_order); ?>&page=<?php echo $page; ?>" class="btn btn-small">View</a>
+												<!-- EOI Status Modifying --> 
+											</div>
+					    	            </td>
+					    	        </tr>
+					    	        <?php endwhile; ?>
+					    	    </tbody>
+					    	</table>
+						</div>
 					</form>
 					<!-- Pagination -->
 					<div class="pagination-container">
@@ -450,5 +446,3 @@
 			mysqli_close($conn);
 			include 'footer.inc';
 			?>
-	</body>
-</html>

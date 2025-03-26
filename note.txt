@@ -1,5 +1,0 @@
-
-
-- update index page (if possible)
-- adjust the manage page
-- adjust the view eoi page

@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-		<title>
-			Etech - Innovating the Future of Technology
-		</title>
-		<link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-		<link rel="stylesheet" href="styles/style.css"> <!-- General styling -->
-		<link rel="stylesheet" href="styles/index.css"> <!-- Homepage styling -->
-	</head>
-	<body>
+		<?php 
+		$title = 'Innovating the Future of Technology';
+		$style = 'index.css';
+		include_once 'initial_page_settings.inc';
+		?>
 		<!-- Navigation Bar -->
 		<?php include_once 'header.inc'; ?>
 		<!-- Section 1: Introduction -->
@@ -26,7 +18,7 @@
 					</p>
 				</div>
 				<div class="img">
-					<img alt="A smiling entrepeneur" src="styles/images/business_man.png">
+					<img alt="A smiling entrepeneur" src="styles/images/business/business_man.png">
 				</div>
 			</div>
 		</section>
@@ -35,10 +27,10 @@
 			<div class="container">
 				<!-- Container box -->
 				<div class="logo-grid">
-					<img class="logo-img" alt="HTML5 logo" src="styles/images/html5.svg">
-					<img class="logo-img" alt="CSS logo" src="styles/images/css.svg">
-					<img class="logo-img" alt="PHP logo" src="styles/images/php.svg">
-					<img class="logo-img" alt="MySQL logo" src="styles/images/mysql.svg">
+					<img class="logo-img" alt="HTML5 logo" src="styles/images/logo/html5.svg">
+					<img class="logo-img" alt="CSS logo" src="styles/images/logo/css.svg">
+					<img class="logo-img" alt="PHP logo" src="styles/images/logo/php.svg">
+					<img class="logo-img" alt="MySQL logo" src="styles/images/logo/mysql.svg">
 				</div>
 			</div>
 		</section>
@@ -46,19 +38,19 @@
 		<section class="bg-white" id="benefit">
 			<div class="container">
 				<div class="img">
-					<img alt="Working" src="styles/images/working.png">
+					<img alt="Working" src="styles/images/business/working.png">
 				</div>
 				<div class="content">
 					<h2><span class="highlight">Benefits</span> When Working in the Company</h2>
 					<div class="benefit-item">
-						<div class="icon"><img src="styles/images/work-life-balance.png" alt="icon"></div>
+						<div class="icon"><img src="styles/images/business/work-life-balance.png" alt="icon"></div>
 						<div class="text">
 							<h3>Work-Life Balance</h3>
 							<p>Flexible schedules and remote work options.</p>
 						</div>
 					</div>
 					<div class="benefit-item">
-						<div class="icon"><img src="styles/images/career-growth.png" alt="icon"></div>
+						<div class="icon"><img src="styles/images/business/career-growth.png" alt="icon"></div>
 						<div class="text">
 							<h3>Career Growth</h3>
 							<p>Training programs and mentorship opportunities.</p>
@@ -72,7 +64,7 @@
 						</div>
 					</div>
 					<div class="benefit-item">
-						<div class="icon"><img src="styles/images/wellbeing.png" alt="icon"></div>
+						<div class="icon"><img src="styles/images/business/wellbeing.png" alt="icon"></div>
 						<div class="text">
 							<h3>Wellbeing</h3>
 							<p>Comprehensive insurance and wellness programs.</p>
@@ -97,28 +89,28 @@
 			<div class="container">
 				<div id="card-align">
 					<div class="review-card">
-						<img src="styles/images/anh.jpg" alt="Lê Kim Anh">
+						<img src="styles/images/personal_img/anh.jpg" alt="Lê Kim Anh">
 						<h3 class="reviewer-name">Lê Kim Anh</h3>
 						<span class="reviewer-job">Web Developer</span>
 						<div class="stars">★★★★★</div>
 						<p class="reviewer-review">The facilities here are top-notch! Never in my life can I workout while working, all in the same place!</p>
 					</div>
 					<div class="review-card">
-						<img src="styles/images/an.jpg" alt="Hoang An">
+						<img src="styles/images/personal_img/an.jpg" alt="Hoang An">
 						<h3 class="reviewer-name">Trịnh Văn Hoàng An</h3>
 						<span class="reviewer-job">Cybersecurity Analyst</span>
 						<div class="stars">★★★★★</div>
 						<p class="reviewer-review">Being able to working on cutting-edge technologies was a game-changer for me. Absolutely transformative experience!</p>
 					</div>
 					<div class="review-card">
-						<img src="styles/images/duong.jpg" alt="Tung Duong Do">
+						<img src="styles/images/personal_img/duong.jpg" alt="Tung Duong Do">
 						<h3 class="reviewer-name">Đỗ Tùng Dương</h3>
 						<span class="reviewer-job">Data Analyst</span>
 						<div class="stars">★★★★★</div>
 						<p class="reviewer-review">My work-life balance has never been better. The team is supportive, and the work is engaging!</p>
 					</div>
 					<div class="review-card">
-						<img src="styles/images/thanh.jpg" alt="Le Duc Thanh">
+						<img src="styles/images/personal_img/thanh.jpg" alt="Le Duc Thanh">
 						<h3 class="reviewer-name">Lê Đức Thành</h3>
 						<span class="reviewer-job">Data Engineer</span>
 						<div class="stars">★★★★★</div>
@@ -170,10 +162,8 @@
 					</div>
 				</div>
 				<div id="img">
-					<img alt="Cheering" src="styles/images/cheering.png">
+					<img alt="Cheering" src="styles/images/business/cheering.png">
 				</div>
 			</div>
 		</section>
 		<?php include_once 'footer.inc'; ?>
-	</body>
-</html>

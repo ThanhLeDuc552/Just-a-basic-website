@@ -197,7 +197,7 @@ footer a:hover {
 		background-color: #c683e0;
 	}
 
-    .btn-login, .btn-register {
+    .btn-login, .btn-register, .btn-logout {
         display: none;
     }
 }

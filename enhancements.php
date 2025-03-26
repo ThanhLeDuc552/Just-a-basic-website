@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Enhancements in Etech website">
-  <title>Etech - Enhancements</title>
-  <link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-  <link rel="stylesheet" href="styles/style.css"> <!-- General styling -->
-  <link rel="stylesheet" href="styles/phpenhancements.css"> <!-- Enhancements page styling -->
-</head>
-<body>
+<?php 
+$title = 'CSS Enhancements';
+$style = 'phpenhancements.css';
+include_once 'initial_page_settings.inc';
+?>
 <?php include_once 'header.inc'; ?>
 <main>
   <div class="container">
@@ -101,7 +94,18 @@
       <div class="enhancement-details">
           <h3>Description</h3>
           <p>Implements both flexbox and grid layout.</p>
+          <div class="code-snippet">
+/* A piece of code from the homepage styling css file */
+#card-align { 
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around; 
+	gap: 15px;
+}
+          </div>
           <p><strong>Detailed Implementation Link:</strong> <a href="jobs.php">Flexbox and grid implementation</a></p>
+          <p><strong>Reference Link:</strong> <a href="https://www.w3schools.com/css/css3_flexbox.asp">W3School</a></p>
       </div>
   </div>
   <div class="enhancement">
@@ -109,11 +113,27 @@
     <div class="enhancement-details">
       <h3>Description</h3>
       <p>Use transform for smoother hover effect</p>
+      <div class="code-snippet">
+/* A piece of code from the homepage styling css file */
+.review-card { 
+	background: white;
+	color: black;
+	padding: 15px;
+	border-radius: 15px;
+	text-align: left;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	max-width: 300px;
+	transition: transform 0.3s ease-in-out;
+}
+
+.review-card:hover { 
+	transform: scale(1.05);
+}
+        </div>
       <p><strong>Detailed Implementation Link:</strong> <a href="index.php">Transform implementation (In comment section)</a></p>
+      <p><strong>Reference Link:</strong> <a href="https://www.w3schools.com/css/css3_2dtransforms.asp">W3School</a></p>
     </div>
   </div>
   </div>
 </main>
 <?php include_once 'footer.inc'; ?>
-</body>
-</html>

@@ -3,14 +3,6 @@ session_start();
 include_once 'settings.php';
 include 'functions.inc';
 
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Log form submission
-error_log("Form submitted: " . print_r($_POST, true));
-
 // Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Initialize errors array
@@ -57,14 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($dob)) {
         $errors['dob'] = "Date of birth is required";
     } else {
-        // Validate age between 15 and 80
-        $birthdate = new DateTime($dob);
-        $today = new DateTime();
-        $age = $birthdate->diff($today)->y;
-
-        if ($age < 15 || $age > 80) {
-            $errors['dob'] = "Age must be between 15 and 80 years";
-        }
+        $errors['dob'] = validate_date($dob) ? "" : "Age must be between 15 and 80 years";
     }
 
     if (empty($gender)) {
@@ -195,8 +180,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("Database error: " . mysqli_error($conn));
         }
     } catch (Exception $e) {
-        error_log("Error in process_eoi.php: " . $e->getMessage());
-
         // Add the database error as a general error
         $errors['general'][] = "Database error: " . $e->getMessage();
 

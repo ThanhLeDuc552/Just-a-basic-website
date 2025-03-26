@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etech - Manager</title>
-    <link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-	<link rel="stylesheet" href="styles/style.css"> <!-- General styling -->
-    <link rel="stylesheet" href="styles/login.css"> <!-- Login page styling -->
-</head>
-<body>
+    <?php 
+    $title = 'Manager Login';
+    $style = 'login.css';
+    include_once 'initial_page_settings.inc';
+    ?>
     <?php 
     session_start();
     include "functions.inc";

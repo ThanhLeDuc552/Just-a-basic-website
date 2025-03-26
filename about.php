@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About the ETech team">
-    <title>ETech - About</title>
-    <link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/about.css">
-</head>
-<body>
+<?php 
+$title = 'About';
+$style = 'about.css';
+include_once 'initial_page_settings.inc';
+?>
+
 <?php include_once 'header.inc'; ?>
 
 <main class="container">
@@ -26,19 +20,19 @@
         <h2>Members’ Contributions</h2>
         <div class="grid">
             <div class="member">
-                <img src="styles/images/thanh.jpg" alt="Le Duc Thanh Avatar">
+                <img src="styles/images/personal_img/thanh.jpg" alt="Le Duc Thanh Avatar">
                 <p><strong>Le Duc Thanh</strong><br>Home Page + Overviewing</p>
             </div>
             <div class="member">
-                <img src="styles/images/anh.jpg" alt="Le Kim Anh Avatar">
+                <img src="styles/images/personal_img/anh.jpg" alt="Le Kim Anh Avatar">
                 <p><strong>Le Kim Anh</strong><br>Job Page + Additional Functions</p>
             </div>
             <div class="member">
-                <img src="styles/images/duong.jpg" alt="Do Tung Duong Avatar">
+                <img src="styles/images/personal_img/duong.jpg" alt="Do Tung Duong Avatar">
                 <p><strong>Do Tung Duong</strong><br>About + Apply Page + Making Tweaks</p>
             </div>
             <div class="member">
-                <img src="styles/images/an.jpg" alt="Trinh Van Hoang An Avatar">
+                <img src="styles/images/personal_img/an.jpg" alt="Trinh Van Hoang An Avatar">
                 <p><strong>Trinh Van Hoang An</strong><br>Enhancement + Source Gathering</p>
             </div>
         </div>
@@ -46,7 +40,7 @@
 
     <section class="photo">
         <figure>
-            <img src="styles/images/group-photo.jpg" alt="ETech Team Photo" style="width: 100%; max-width: 600px; border-radius: 10px;">
+            <img src="styles/images/personal_img/group-photo.jpg" alt="ETech Team Photo" style="width: 100%; max-width: 600px; border-radius: 10px;">
             <figcaption>ETech Team</figcaption>
         </figure>
     </section>
@@ -90,5 +84,3 @@
 </main>
 
 <?php include_once 'footer.inc'; ?>
-</body>
-</html>

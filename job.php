@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etech - About</title>
-    <link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-    <link rel="stylesheet" href="styles/job.css">
-    <link rel="stylesheet" href="styles/style.css">
-</head>
-<body>
+
+    <?php 
+    $title = 'About Job';
+    $style = 'job.css';
+    include_once 'initial_page_settings.inc'
+    ?>
     <?php 
         include_once "header.inc";
         include "settings.php";
@@ -117,5 +112,3 @@
     mysqli_close($conn);
     include_once("footer.inc")
     ?>
-</body>
-</html>

@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Apply for a job at Etech">
-		<title>Etech - Apply</title>
-		<link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-		<link rel="stylesheet" href="styles/style.css">
-		<link rel="stylesheet" href="styles/apply.css">
-	</head>
-	<body>
+		<?php 
+		$title = 'Apply';
+		$style = 'apply.css';
+		include_once 'initial_page_settings.inc';
+		?>
 		<?php 
 		include_once 'header.inc'; 
 		if (isset($_SESSION["manager_id"])) {
@@ -100,5 +93,3 @@
 		if (isset($errors)) unset($errors);
 		include_once 'footer.inc'; 
 		?>
-	</body>
-</html>

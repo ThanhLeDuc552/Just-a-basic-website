@@ -1,17 +1,8 @@
-<html lang="en">
-	<head>
-		<meta charset="utf-8"/>
-		<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-		<title>
-			Etech: Innovating the Future of Technology
-		</title>
-		<link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-		<link rel="stylesheet" href="styles/style.css">
-		<!-- General styling -->
-		<link rel="stylesheet" href="styles/jobs.css">
-		<!-- Jobs page styling -->
-	</head>
-	<body>
+		<?php 
+		$title = 'Jobs';
+		$style = 'jobs.css';
+		include_once 'initial_page_settings.inc';
+		?>
 		<!-- Header -->
 		<?php include_once 'header.inc'; ?>
 		<?php include 'settings.php' ?>
@@ -149,5 +140,3 @@
 			</div>
 		</main>
 		<?php include_once 'footer.inc'; ?>
-	</body>
-</html>

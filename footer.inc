@@ -24,3 +24,5 @@
 		Copyright &copy; 2023 Etech. All rights reserved
 	</div>
 </footer>
+</body>
+</html>

@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-    <link rel="stylesheet" href="styles/view_enhancements.css">
-</head>
-<body>
+<?php 
+$title = 'Enhancements';
+$style = 'view_enhancements.css';
+include_once 'initial_page_settings.inc'
+?>
 <?php include_once 'header.inc'; ?>
 <main>
 <section class="enhancements container">
@@ -25,6 +19,4 @@
 </section>
 </main>
 <?php include_once 'footer.inc'; ?>
-</body>
-</html>
 

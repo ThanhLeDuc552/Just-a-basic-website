@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>PHP Project Enhancements Guide</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/phpenhancements.css">
-    <link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
-</head>
-<body>
+    <?php 
+    $title = 'PHP Enhancements';
+    $style = 'phpenhancements.css';
+    include_once 'initial_page_settings.inc';
+    ?>
     <?php include_once "header.inc"; ?>
     <div class="container">
     <h1>PHP Project Enhancements Documentation</h1>
@@ -117,7 +112,7 @@ $result = mysqli_stmt_get_result($main_stmt);
                 <li>Simple user interface for selection</li>
             </ul>
             
-            <p><strong>Detailed Implementation Link:</strong> <a href="login.php">Sorting Implementation Details</a></p>
+            <p><strong>Detailed Implementation Link:</strong> <a href="login.php">Sorting Implementation Details (Account: admin | Password: Admin@123) (Need to login to test)</a></p>
         </div>
     </div>
 
@@ -196,5 +191,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
     </div>
     <?php include_once "footer.inc"; ?>
-</body>
-</html>
