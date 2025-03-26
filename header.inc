@@ -24,7 +24,7 @@
 			Apply
 			</a>
 			<?php endif; ?>
-			<a href="enhancements.php">
+			<a href="view_enhancements.php">
 			Enhancements
 			</a>
 			<?php 

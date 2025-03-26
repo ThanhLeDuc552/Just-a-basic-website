@@ -173,7 +173,7 @@ footer a:hover {
     }
     
     #menu-toggle:checked ~ nav {
-        display: flex;
+        display: block;
     }
 
     header nav {

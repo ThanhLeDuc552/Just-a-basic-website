@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'settings.php';
 include 'functions.inc';
 
@@ -93,7 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Validate postcode against state
         $valid_postcode = false;
-
         switch ($state) {
             case 'VIC':
                 $valid_postcode = (substr($postcode, 0, 1) == '3' || substr($postcode, 0, 1) == '8');
@@ -153,9 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['form_errors'] = $errors;
         $_SESSION['form_data'] = $_POST; // Store form data for repopulation
 
-        error_log("Validation errors found: " . print_r($errors, true));
-
-        header("Location: apply.php" . (!empty($job_ref) ? "?job=" . urlencode($job_ref) : ""));
+        header("Location: apply.php" . (!empty($job_ref) ? "?job_ref=" . urlencode($job_ref) : ""));
         exit();
     }
 
@@ -184,10 +182,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['application_success'] = true;
             $_SESSION['eoi_number'] = $eoi_number;
 
-            // Log success and session state
-            error_log("Application successful. EOI: $eoi_number");
-            error_log("Session after success: " . print_r($_SESSION, true));
-
             // Close connection before redirect
             mysqli_close($conn);
 
@@ -212,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Close connection before redirect
         mysqli_close($conn);
 
-        header("Location: apply.php" . (!empty($job_ref) ? "?job=" . urlencode($job_ref) : ""));
+        header("Location: apply.php" . (!empty($job_ref) ? "?job_ref=" . urlencode($job_ref) : ""));
         exit();
     }
 } else {

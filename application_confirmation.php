@@ -12,13 +12,10 @@
 <?php
 session_start();
 // Debug information (remove in production)
-error_log("Confirmation page loaded. Session: " . print_r($_SESSION, true));
-
 // FIXED: There was a typo in the session variable check
 // Old (with typo): if (!isset($_SESSION['applicatapplication_confirmation.phpion_success']) || !$_SESSION['application_success'])
 // New (corrected):
 if (!isset($_SESSION['application_success']) || $_SESSION['application_success'] !== true) {
-    error_log("Redirecting from confirmation page - No success flag in session");
     header("Location: index.php");
     exit();
 }

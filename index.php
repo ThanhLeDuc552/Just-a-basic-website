@@ -160,7 +160,11 @@
 						</li>
 					</ul>
 					<div class="actions">
-						<a href="apply.html">
+						<?php if (isset($_SESSION["manager_id"])): ?>
+						<a href="manage.php">
+						<?php else: ?>
+						<a href="apply.php">
+						<?php endif; ?>
 							<button class="btn btn-general">Apply Now</button>
 						</a>
 					</div>

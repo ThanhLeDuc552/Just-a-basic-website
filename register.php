@@ -68,12 +68,12 @@
             <form action="register.php" method="post">
                 <h1>Manager Registration</h1>
                 <?php if (!empty($err_msg)): ?>
-                    <div class="error_message" style="color: #ef4444; margin-bottom: 15px; text-align: center;">
+                    <div class="error_message">
                         <?php echo htmlspecialchars($err_msg); ?>
                     </div>
                 <?php endif; ?>
                 <?php if (!empty($success_msg)): ?>
-                    <div class="success_message" style="color: #10b981; margin-bottom: 15px; text-align: center;">
+                    <div class="success_message">
                         <?php echo htmlspecialchars($success_msg); ?>
                     </div>
                 <?php endif; ?>

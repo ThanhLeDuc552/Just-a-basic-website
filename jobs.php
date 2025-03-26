@@ -92,37 +92,39 @@
 					mysqli_stmt_execute($stmt);
 					$result = mysqli_stmt_get_result($stmt);
 
-					if (mysqli_num_rows($result) == 0) {
-						echo "<h2>No jobs found</h2>";
-					} else { 
-						echo "<div class=\"card-align\">";
-						while ($row = mysqli_fetch_assoc($result)) {
-							echo "<div class=\"job-card\">
-									<div class=\"job-card-header\">
-										<h2 class=\"job-title\">" . $row["Title"] . "</h2>
-									</div>
-									<div class=\"job-card-body\">
-										<div class=\"job-detail\">
-											<div class=\"detail-label\">Location:</div>
-        									<div class=\"detail-value\">" . $row["Location"] . "</div>
-      									</div>
-      									<div class=\"job-detail\">
-        									<div class=\"detail-label\">Salary Range:</div>
-        									<div class=\"detail-value\">" . $row["Salary"] . "</div>
-      									</div>
-      									<div class=\"job-detail\">
-        									<div class=\"detail-label\">Reference Code:</div>
-        									<div class=\"detail-value\">" . $row["JobReferenceNumber"] . "</div>
-      									</div>
-    								</div>
-    								<div class=\"job-card-footer\">
-      									<a href=\"apply.php?job-ref=" . $row["JobReferenceNumber"] . "\"><button class=\"btn btn-general\">Apply Now</button></a>
-										<a href=\"job.php?job-ref=" . $row["JobReferenceNumber"] . "\"><button class=\"btn btn-general\">Discover</button></a>
-    								</div>
-  								</div>";
-						}
-						echo "</div>";
-					}
+					if (mysqli_num_rows($result) == 0): 
+					?>
+					<h2>No jobs found</h2>
+					<?php else: ?> 
+					<div class="card-align">
+					<?php while ($row = mysqli_fetch_assoc($result)): ?>
+						<div class="job-card">
+							<div class="job-card-header">
+								<h2 class="job-title"><?php echo $row["Title"]; ?></h2>
+							</div>
+							<div class="job-card-body">
+								<div class="job-detail">
+									<div class="detail-label">Location:</div>
+        							<div class="detail-value"><?php echo $row["Location"];?></div>
+      							</div>
+      							<div class="job-detail">
+        							<div class="detail-label">Salary Range:</div>
+        							<div class="detail-value"><?php echo $row["Salary"]; ?></div>
+      							</div>
+      							<div class="job-detail">
+        							<div class="detail-label">Reference Code:</div>
+        							<div class="detail-value"><?php echo $row["JobReferenceNumber"]; ?></div>
+      							</div>
+    						</div>
+    						<div class="job-card-footer">
+      							<a href="<?php echo isset($_SESSION['manager_id']) ? "manage.php" : "apply.php?job_ref=" . $row['JobReferenceNumber']; ?>"><button class="btn btn-general">Apply Now</button></a>
+								<a href="job.php?job_ref=<?php echo $row["JobReferenceNumber"]; ?>"><button class="btn btn-general">Discover</button></a>
+    						</div>
+  						</div>
+						<?php endwhile; ?>
+					</div>
+					<?php 
+					endif; 
 					mysqli_close($conn);
 					?>
 				</div>

@@ -187,7 +187,7 @@
 					<h2>HR Manager Dashboard</h2>
 					<p>Welcome, <?php echo htmlspecialchars($_SESSION['manager_name']); ?>. Manage job applications from this dashboard.</p>
 					<?php if (!empty($action_message)): ?>
-					<div class="action-message">
+					<div class="action-message"> 
 						<?php echo htmlspecialchars($action_message); ?>
 					</div>
 					<?php endif; ?>
@@ -219,6 +219,31 @@
 									</span>
 								</div>
 							</div>
+							<div class="detail-row">
+								<div class="detail-label">Main skills:</div>
+								<div class="detail-value">
+									<?php
+									$skills = [];
+									if (isset($eoi_details['Skill1']) && !empty($eoi_details['Skill1'])) {
+									    $skills[] = $eoi_details['Skill1'];
+									}
+									if (isset($eoi_details['Skill2']) && !empty($eoi_details['Skill2'])) {
+									    $skills[] = $eoi_details['Skill2'];
+									}
+									if (isset($eoi_details['Skill3']) && !empty($eoi_details['Skill3'])) {
+										$skills[] = $eoi_details['Skill3'];
+									}
+									if (isset($eoi_details['Skill4']) && !empty($eoi_details['Skill4'])) {
+										$skills[] = $eoi_details['Skill4'];
+									}
+									echo $skills ? implode(', ', $skills) : 'N/A';
+									?>
+								</div>
+							</div> <!-- Skills -->
+							<div class="detail-row">
+								<div class="detail-label">Other skills:</div>
+								<div class="detail-value"><?php echo (isset($eoi_details['OtherSkills']) && !empty($eoi_details['OtherSkills'])) ? $eoi_details['OtherSkills'] : 'N/A'; ?></div>
+							</div> <!-- Other Skills -->
 						</div>
 						<div class="detail-actions">
 							<form method="post" action="manage.php" class="inline-form">
@@ -297,7 +322,7 @@
 										<?php
 											mysqli_data_seek($job_refs_result, 0); // Reset pointer to beginning
 											while ($job_ref = mysqli_fetch_assoc($job_refs_result)):
-											    ?>
+										?>
 										<option value="<?php echo htmlspecialchars($job_ref['JobReferenceNumber']); ?>">
 											<?php echo htmlspecialchars($job_ref['JobReferenceNumber']); ?>
 										</option>
@@ -306,6 +331,7 @@
 								</div>
 							</div>
 							<div class="form-actions">
+								<!-- JavaScript consideration -->
 								<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete all applications for this job reference? This action cannot be undone.');">Delete All</button>
 							</div>
 						</form>
@@ -391,27 +417,8 @@
 									<td>
 										<div class="action-buttons">
 											<a href="manage.php?view_eoi=<?php echo $row['EOInumber']; ?>&job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=<?php echo urlencode($sort_by); ?>&order=<?php echo urlencode($sort_order); ?>&page=<?php echo $page; ?>" class="btn btn-small">View</a>
-											<div class="status-forms">
-					                            <form method="post" action="manage.php" class="inline-form">
-					                                <input type="hidden" name="action" value="update_status">
-					                                <input type="hidden" name="eoi_id" value="<?php echo $row['EOInumber']; ?>">
-					                                <input type="hidden" name="new_status" value="New">
-					                                <button type="submit" class="btn btn-small">New</button>
-					                            </form>
-					                            <form method="post" action="manage.php" class="inline-form">
-					                                <input type="hidden" name="action" value="update_status">
-					                                <input type="hidden" name="eoi_id" value="<?php echo $row['EOInumber']; ?>">
-					                                <input type="hidden" name="new_status" value="Current">
-					                                <button type="submit" class="btn btn-small">Current</button>
-					                            </form>
-					                            <form method="post" action="manage.php" class="inline-form">
-					                                <input type="hidden" name="action" value="update_status">
-					                                <input type="hidden" name="eoi_id" value="<?php echo $row['EOInumber']; ?>">
-					                                <input type="hidden" name="new_status" value="Final">
-					                                <button type="submit" class="btn btn-small">Final</button>
-					                            </form>
-					                        </div>
-					                    </div>
+											<!-- EOI Status Modifying --> 
+										</div>
 					                </td>
 					            </tr>
 					            <?php endwhile; ?>

@@ -20,7 +20,7 @@
         $password = isset($_POST["password"]) ? $_POST['password'] : '';
 
         if (is_account_locked($username, $conn)) {
-            echo "Your account has been temporarily locked due to multiple failed login attempts. Please try again later.";
+            $err_msg = "Your account has been temporarily locked due to multiple failed login attempts. Please try again later.";
         } else {
             // Verify credentials
             $sql = "SELECT ManagerID, Username, Password, FirstName, LastName FROM managers WHERE Username = ? OR Email = ?";
@@ -37,28 +37,27 @@
                     $_SESSION['username'] = $row['Username'];
 
                     // Log successful login
-                    log_login_attempt($username, true, $conn);
+                    log_login_attempt($row["Username"], true, $conn);
 
                     // Update last login time
-                    update_last_login($username, $conn);
+                    update_last_login($row["Username"], $conn);
 
                     header("Location: manage.php");
                     exit();
                 } else {
                     // Failed login - wrong password
                     $err_msg = "Invalid username or password";
-                    log_login_attempt($username, false, $conn);
+                    log_login_attempt($row["Username"], false, $conn);
 
                     // Check if account should be locked
-                    if (check_account_lockout($username, $conn)) {
-                        lock_account($username, $conn);
+                    if (check_account_lockout($row["Username"], $conn)) {
+                        lock_account($row["Username"], $conn);
                         $err_msg = "Your account has been temporarily locked due to multiple failed login attempts. Please try again later.";
                     }
                 }
             } else {
                 // Failed login - username not found
                 $err_msg = "Invalid username or password";
-                log_login_attempt($username, false, $conn);
             }
         }
     }
@@ -88,5 +87,6 @@
             </form>
         </div>
     </main>
+    <?php if (!empty($err_msg)) $err_msg = ''; ?>
 </body>
 </html>

@@ -1,0 +1,45 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 30px 0;
+}
+
+.enhancements {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.enhancement-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.enhancement-card h2 {
+    color: #6a0dad; /* Purple Theme */
+}
+
+.enhancement-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #6a0dad;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.enhancement-card a:hover {
+    background-color: #5a0cac;
+}

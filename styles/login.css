@@ -117,3 +117,15 @@ p {
     text-align: center; 
     margin-top: 15px;
 }
+
+.error_message {
+    color: #ef4444;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.success_message {
+    color: #10b981; 
+    margin-bottom: 15px; 
+    text-align: center;
+}

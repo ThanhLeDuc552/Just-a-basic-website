@@ -1,3 +1,8 @@
+.err_msg {
+  color: red;
+  display: inline;
+}
+
 .form-container {
   max-width: 800px;
   margin: 2rem auto;
