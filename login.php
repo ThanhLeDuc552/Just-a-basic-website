@@ -11,7 +11,7 @@
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $username = isset($_POST["username"]) ? sanitize_input($_POST["username"]) : "";
         $email = isset($_POST["username"]) ? sanitize_input($_POST["username"]) : "";
-        $password = isset($_POST["password"]) ? $_POST['password'] : '';
+        $password = isset($_POST["password"]) ? custom_password_hash($_POST['password']) : '';
 
         if (is_account_locked($username, $conn)) {
             $err_msg = "Your account has been temporarily locked due to multiple failed login attempts. Please try again later.";
@@ -24,7 +24,7 @@
             $result = mysqli_stmt_get_result($stmt);
 
             if ($row = mysqli_fetch_assoc($result)) {
-                if (password_verify($password, $row['Password'])) {
+                if ($password === $row['Password']) {
                     // Successful login
                     $_SESSION['manager_id'] = $row['ManagerID'];
                     $_SESSION['manager_name'] = $row['FirstName'] . ' ' . $row['LastName'];

@@ -1,5 +1,6 @@
 <?php
 require_once 'settings.php';
+include_once 'functions.inc';
 
 // Drop existing tables
 $sql_drop_eoi = "DROP TABLE IF EXISTS eoi";
@@ -161,7 +162,7 @@ echo "Sample jobs data inserted successfully<br>";
 
 // Create a default admin user
 $default_username = "admin";
-$default_password = password_hash("Admin@123", PASSWORD_DEFAULT);
+$default_password = custom_password_hash("Admin@123");
 $default_fname = "System";
 $default_lname = "Administrator";
 $default_email = "admin@example.com";

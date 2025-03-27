@@ -38,7 +38,7 @@
             $err_msg = "Invalid email format";
         } else {
             // Hash the password
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $hashed_password = custom_password_hash($password);
             
             // Insert new manager into database
             $insert_sql = "INSERT INTO managers (Username, Password, FirstName, LastName, Email) VALUES (?, ?, ?, ?, ?)";

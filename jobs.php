@@ -5,7 +5,10 @@
 		?>
 		<!-- Header -->
 		<?php include_once 'header.inc'; ?>
-		<?php include 'settings.php' ?>
+		<?php 
+		include 'settings.php';
+		include_once "functions.inc";
+		?>
 		<!-- Section 3: Job search -->
 		<main>
 			<section class="bg-white" id="job-search">
@@ -77,7 +80,7 @@
 
 					$stmt = mysqli_prepare($conn, $sql);
 					if (!empty($params)) {
-						mysqli_stmt_bind_param($stmt, $types, ...$params);
+						bind_params($stmt, $types,$params);
 					}
 			
 					mysqli_stmt_execute($stmt);

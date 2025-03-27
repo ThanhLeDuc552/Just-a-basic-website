@@ -47,7 +47,7 @@ $count_sql = "SELECT COUNT(*) as total " . $base_query;
 $count_stmt = mysqli_prepare($conn, $count_sql);
 
 if (!empty($params)) {
-    mysqli_stmt_bind_param($count_stmt, $types, ...$params);
+    bind_params($count_stmt, $types, $params);
 }
 
 mysqli_stmt_execute($count_stmt);
@@ -79,7 +79,7 @@ $params[] = $records_per_page;
 $types .= "ii";
 
 if (!empty($params)) {
-    mysqli_stmt_bind_param($main_stmt, $types, ...$params);
+    bind_params($main_stmt, $types, $params);
 }
 
 mysqli_stmt_execute($main_stmt);

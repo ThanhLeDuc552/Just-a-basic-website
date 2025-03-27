@@ -13,6 +13,48 @@ function sanitize_input($data) {
 }
 
 /**
+ * Binds parameters dynamically to a prepared MySQLi statement.
+ *
+ * This function allows dynamic binding of parameters to a prepared statement,
+ * ensuring compatibility with MySQLi's bind_param() which requires parameters 
+ * to be passed by reference.
+ *
+ * @param mysqli_stmt $stmt  The prepared statement object.
+ * @param string $types      A string representing the data types of the parameters 
+ *                           (e.g., "sis" for string, integer, string).
+ * @param array $params      An array containing the parameters to bind.
+ * @return void
+ */
+function bind_params($stmt, $types, $params) {
+    // Convert array values to references
+    $refs = array();
+    foreach ($params as $key => $value) {
+        $refs[$key] = &$params[$key]; // Create reference
+    }
+
+    // Bind parameters
+    array_unshift($refs, $types); // Add types at the beginning
+    call_user_func_array(array($stmt, 'bind_param'), $refs);
+}
+
+/**
+ * Encryption for password for further security implementation
+ *
+ * @param string $password Pure password
+ * @return Encrypted password
+ */
+function custom_password_hash($password) {
+    // Fixed salt (must be exactly 22 characters for bcrypt)
+    $salt = 'abcdefghijABCDEFGHIJ1234';
+    
+    // Bcrypt format: "$2y$cost$salt"
+    $cost = "10"; // Cost factor (10 is default for bcrypt)
+    $saltFormatted = sprintf("$2y$%02d$%s", $cost, $salt);
+    
+    return crypt($password, $saltFormatted);
+}
+
+/**
  * Validates a date of birth to ensure it's between 15 and 80 years old
  *
  * @param string $dob Date of birth in yyyy-mm-dd format
