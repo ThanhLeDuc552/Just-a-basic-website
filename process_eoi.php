@@ -3,6 +3,7 @@ session_start();
 include_once 'settings.php';
 include 'functions.inc';
 
+if (isset($_SESSION['form_errors'])) unset($_SESSION['form_errors']);
 // Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Initialize errors array
@@ -48,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($dob)) {
         $errors['dob'] = "Date of birth is required";
-    } else {
-        $errors['dob'] = validate_date($dob) ? "" : "Age must be between 15 and 80 years";
+    } else if (!validate_dob($dob)) {
+        $errors['dob'] =  "Age must be between 15 and 80 years";
     }
 
     if (empty($gender)) {
@@ -134,6 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } 
 
     // If there are validation errors
+    $errors = array_filter($errors);
     if (!empty($errors)) {
         $_SESSION['form_errors'] = $errors;
         $_SESSION['form_data'] = $_POST; // Store form data for repopulation
