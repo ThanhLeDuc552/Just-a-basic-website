@@ -57,7 +57,7 @@
 						</div>
 					</div>
 					<div class="benefit-item">
-						<div class="icon"><img src="styles/images/competitive-salary.png" alt="icon"></div>
+						<div class="icon"><img src="styles/images/business/competitive-salary.png" alt="icon"></div>
 						<div class="text">
 							<h3>Competitive Salary</h3>
 							<p>Above industry-average compensation packages.</p>
