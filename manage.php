@@ -214,6 +214,22 @@
 								</div>
 							</div>
 							<div class="detail-row">
+								<div class="detail-label">DOB:</div>
+								<div class="detail-value"><?php echo $eoi_details['DOB']; ?></div>
+							</div>
+							<div class="detail-row">
+								<div class="detail-label">Gender:</div>
+								<div class="detail-value"><?php echo $eoi_details['Gender']; ?></div>
+							</div>
+							<div class="detail-row">
+								<div class="detail-label">State:</div>
+								<div class="detail-value"><a href="https://auspost.com.au/postcode/<?php echo $eoi_details['State']; ?>"><?php echo $eoi_details['State']; ?></a></div>
+							</div>
+							<div class="detail-row">
+								<div class="detail-label">Phone Number:</div>
+								<div class="detail-value"><?php echo $eoi_details['PhoneNumber']; ?></div>
+							</div>
+							<div class="detail-row">
 								<div class="detail-label">Main skills:</div>
 								<div class="detail-value">
 									<?php
@@ -238,6 +254,7 @@
 								<div class="detail-label">Other skills:</div>
 								<div class="detail-value"><?php echo (isset($eoi_details['OtherSkills']) && !empty($eoi_details['OtherSkills'])) ? $eoi_details['OtherSkills'] : 'N/A'; ?></div>
 							</div> <!-- Other Skills -->
+
 						</div>
 						<div class="detail-actions">
 							<form method="post" action="manage.php" class="inline-form">
