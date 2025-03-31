@@ -40,7 +40,7 @@ include_once 'initial_page_settings.inc';
 
     <section class="photo">
         <figure>
-            <img src="styles/images/personal_img/group-photo.jpg" alt="ETech Team Photo" style="width: 100%; max-width: 600px; border-radius: 10px;">
+            <img src="styles/images/personal_img/group-photo.jpg" alt="ETech Team Photo">
             <figcaption>ETech Team</figcaption>
         </figure>
     </section>
