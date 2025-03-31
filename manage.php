@@ -365,7 +365,7 @@
 							<table class="data-table">
 								<thead>
 									<tr>
-										<th><input type="checkbox" onclick="toggleAll(this)"></th>
+										<th><input type="hidden"></th>
 										<th>
 											<a href="manage.php?job_ref=<?php echo urlencode($filter_job); ?>&applicant_name=<?php echo urlencode($filter_name); ?>&status=<?php echo urlencode($filter_status); ?>&sort=EOInumber&order=<?php echo ($sort_by == 'EOInumber' && $sort_order == 'ASC') ? 'DESC' : 'ASC'; ?>">
 											EOI #

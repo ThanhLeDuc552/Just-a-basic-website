@@ -4,9 +4,9 @@
 			<h3>Etech.</h3>
 			<p>Immerse yourself in a world of technologies</p>
 			<div class="social-icons">
-				<a href="#">&#9679;</a>
-				<a href="#">&#9679;</a>
-				<a href="#">&#9679;</a>
+				<a href="#"><i class="fab fa-facebook"></i></a>
+				<a href="#"><i class="fa-brands fa-instagram"></i></a>
+				<a href="#"><i class="fa-brands fa-x-twitter"></i></a>
 			</div>
 		</div>
 		<div class="footer-column">

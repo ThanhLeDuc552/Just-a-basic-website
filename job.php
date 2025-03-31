@@ -76,7 +76,7 @@
                         <li><?php echo $job['Salary']; ?></li>
                         <li>Full remote flexibility</li>
                         <li>Premium health benefits</li>
-                        <li>Tech stipend (\$2,500)</li>
+                        <li>Tech stipend ($2,500)</li>
                     </ul>
                 </div>
                 <a href="<?php echo isset($_SESSION["manager_id"]) ? "manage.php" : "apply.php?job_ref=" . $job_ref; ?>"><button class='apply-btn'>Apply Now</button></a>

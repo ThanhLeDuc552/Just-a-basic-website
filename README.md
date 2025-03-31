@@ -10,12 +10,6 @@
 - Hoang An
 - Duc Thanh
 
-## Setup Instructions
-
-1. **Important:** Change student ID to your ID in `settings.php`
-2. Run `setup.php` for initial database setting
-3. Test and report errors if found
-
 ## Features
 
 This project provides a management system for Etech with the following features:
@@ -29,14 +23,12 @@ This project provides a management system for Etech with the following features:
 - PHP
 - MySQL
 - HTML/CSS
-- JavaScript
 
 ## Directory Structure
 
 ```
 ├── index.php           # Homepage
 ├── manage.php          # Dashboard after login
-├── setup.php           # Database setup script
 ├── settings.php        # Configuration settings
 ├── functions.inc       # Common functions
 ├── settings.inc        # Swinburne account for database connection

@@ -7,5 +7,6 @@
 		<link rel="stylesheet" href="styles/style.css">
 		<link rel="stylesheet" href="styles/<?php echo $style; ?>">
 		<link rel="stylesheet" href="https://use.typekit.net/ilv8ihq.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	</head>
 <body>
